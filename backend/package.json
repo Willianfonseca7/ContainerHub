@@ -24,6 +24,8 @@
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0"
   },
+    
+
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
@@ -37,5 +39,21 @@
   "strapi": {
     "uuid": "60ddf200-f572-41cf-81b7-7a6a18b31101",
     "installId": "b7ff99501ad2bd54471061b67ffd28fce51c9a79b08f5b65aa7bce0272829522"
-  }
+  },
+  "overrides": {
+  "@strapi/admin": "5.32.0",
+  "@strapi/helper-plugin": "5.32.0",
+  "@strapi/content-manager": "5.32.0",
+  "@strapi/content-releases": "5.32.0",
+  "@strapi/content-type-builder": "5.32.0",
+  "@strapi/upload": "5.32.0",
+  "@strapi/email": "5.32.0",
+  "@strapi/i18n": "5.32.0",
+  "@strapi/review-workflows": "5.32.0",
+  "@strapi/core": "5.32.0",
+  "@strapi/plugin-users-permissions": "5.32.0",
+  "@strapi/plugin-cloud": "5.32.0"
+}
+
+
 }
