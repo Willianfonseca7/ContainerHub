@@ -1,15 +1,32 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import FiltersBar from '../components/domain/FiltersBar';
 import ContainerGrid from '../components/domain/ContainerGrid';
 import { normalizeText, useKontainer } from '../context/KontainerContext';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
+import { useI18n } from '../context/I18nContext';
 
 const sizeMeta = {
-  S: { label: '≈ 7,5 m² · 10 ft', priceRange: '€95 – €130 / mês', base: 110, example6: 99, econ6: 66 },
-  M: { label: '≈ 14,8 m² · 20 ft', priceRange: '€140 – €190 / mês', base: 170, example6: 153, econ6: 102 },
-  L: { label: '≈ 29,8 m² · 40 ft', priceRange: '€220 – €280 / mês', base: 250, example6: 225, econ6: 150 },
+  S: {
+    label: '≈ 7,5 m² · 10 ft',
+    base: 110,
+    example6: 99,
+    econ6: 66,
+  },
+  M: {
+    label: '≈ 14,8 m² · 20 ft',
+    base: 170,
+    example6: 153,
+    econ6: 102,
+  },
+  L: {
+    label: '≈ 29,8 m² · 40 ft',
+    base: 250,
+    example6: 225,
+    econ6: 150,
+  },
 };
 
 const sizeIllustrations = ['S', 'M', 'L'].reduce((acc, size) => {
@@ -33,14 +50,43 @@ const sizeIllustrations = ['S', 'M', 'L'].reduce((acc, size) => {
   return acc;
 }, {});
 
-function SizeCard({ size, items, loading }) {
+function getPriceValue(item) {
+  const raw = item?.price ?? item?.priceMonthly ?? item?.price_monthly;
+  const num = Number(raw);
+  return Number.isFinite(num) ? num : null;
+}
+
+function formatPriceText(noCam, cam, lang, t) {
+  const noCamText = noCam !== null ? `€${noCam}` : '—';
+  const camText = cam !== null ? `€${cam}` : '—';
+  return lang === 'de'
+    ? `Ab ${noCamText}/Monat • Kamera ab ${camText}/Monat`
+    : `From ${noCamText}/month • Camera from ${camText}/month`;
+}
+
+function SizeCard({ size, items, loading, t, lang }) {
   const imgSrc = sizeIllustrations[size];
   const total = items.length;
-  const available = items.filter((i) => i.status === 'available').length;
-  const premium = items.filter((i) => i.plan === 'premium').length;
-  const basic = items.filter((i) => i.plan === 'basic').length;
-  const locations = Array.from(new Set(items.map((i) => i.location))).join(' • ');
+  const available = items.filter((i) => (i.status || i.availabilityStatus || 'available') === 'available').length;
+  const premium = items.filter((i) => (i.plan || (i.hasCamera ? 'premium' : 'basic')) === 'premium').length;
+  const basic = items.filter((i) => (i.plan || (i.hasCamera ? 'premium' : 'basic')) === 'basic').length;
+  const locations = Array.from(
+    new Set(items.map((i) => i.city || i.location || '—')),
+  ).join(' • ');
   const meta = sizeMeta[size];
+
+  const pricesNoCam = items
+    .filter((i) => !(i.hasCamera ?? i.has_camera))
+    .map(getPriceValue)
+    .filter((v) => v !== null);
+  const pricesCam = items
+    .filter((i) => i.hasCamera ?? i.has_camera)
+    .map(getPriceValue)
+    .filter((v) => v !== null);
+
+  const minNoCam = pricesNoCam.length ? Math.min(...pricesNoCam) : null;
+  const minCam = pricesCam.length ? Math.min(...pricesCam) : null;
+  const priceText = formatPriceText(minNoCam, minCam, lang, t);
 
   return (
     <Card className="overflow-hidden">
@@ -55,23 +101,23 @@ function SizeCard({ size, items, loading }) {
       <div className="p-5 space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Containers</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{t('containers.badge')}</p>
             <h3 className="text-xl font-semibold text-slate-900">
               Container {meta?.label || size}
             </h3>
           </div>
-          <Badge variant="neutral">{total} unidades</Badge>
+          <Badge variant="neutral">{t('cards.units', { count: total })}</Badge>
         </div>
         <div className="space-y-1 text-sm text-slate-600">
-          <p className="text-slate-900 font-semibold">{meta?.priceRange}</p>
-          <p>Locais: {locations || '—'}</p>
-          <p>Disponíveis: {available > 0 ? available : '—'}</p>
-          <p>Planos: Basic {basic} • Premium {premium}</p>
-          <p className="text-xs text-slate-500">PIN; Premium com câmera 24/7.</p>
+          <p className="text-slate-900 font-semibold">{priceText}</p>
+          <p>{t('containers.locations', { value: locations || '—' })}</p>
+          <p>{t('containers.available', { value: available > 0 ? available : '—' })}</p>
+          <p>{t('containers.plans', { basic, premium })}</p>
+          <p className="text-xs text-slate-500">{t('containers.info')}</p>
         </div>
         {!total && !loading ? (
           <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3 text-sm text-slate-500">
-            Nenhum container deste tamanho com os filtros atuais.
+            {t('containers.emptySize')}
           </div>
         ) : null}
       </div>
@@ -79,26 +125,35 @@ function SizeCard({ size, items, loading }) {
   );
 }
 
+// TODO: replace with real auth
+function isAdmin() {
+  return typeof localStorage !== 'undefined' && localStorage.getItem('role') === 'admin';
+}
+
 export default function Containers() {
-  const { filteredContainers, filters, setFilter, resetFilters, loading, error, reload, containers } =
-    useKontainer();
+  const { filteredContainers, filters, setFilter, loading, error, reload, containers } = useKontainer();
+  const { t, lang } = useI18n();
+  const navigate = useNavigate();
 
   const selectedLocation = filters.location;
 
   const grouped = ['S', 'M', 'L'].map((size) => {
     const items = filteredContainers.filter((c) => {
-      const sizeMatch = normalizeText(c.sizeM2) === normalizeText(size);
+      const sizeMatch = normalizeText(c.size || c.sizeM2) === normalizeText(size);
+      const cityValue = c.city || c.location;
       const locationMatch =
         selectedLocation === 'all' ||
-        normalizeText(c.location) === normalizeText(selectedLocation) ||
-        normalizeText(c.location) === normalizeText(
+        normalizeText(cityValue) === normalizeText(selectedLocation) ||
+        normalizeText(cityValue) === normalizeText(
           selectedLocation === 'Köln' ? 'Koln' : selectedLocation,
         );
       return sizeMatch && locationMatch;
     });
 
     if (process.env.NODE_ENV !== 'production' && items.length === 0 && containers.length > 0) {
-      const uniqueCities = Array.from(new Set(containers.map((c) => normalizeText(c.location))));
+      const uniqueCities = Array.from(
+        new Set(containers.map((c) => normalizeText(c.city || c.location))),
+      );
       // eslint-disable-next-line no-console
       console.debug(
         '[containers] contagem 0 para tamanho',
@@ -118,60 +173,70 @@ export default function Containers() {
   return (
     <div className="space-y-6 py-10">
       <header className="flex flex-col gap-2">
-        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Inventário</p>
+        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{t('containers.badge')}</p>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-3xl font-bold text-slate-900">Containers por tamanho</h1>
+          <h1 className="text-3xl font-bold text-slate-900">{t('containers.title')}</h1>
           <Button variant="ghost" size="sm" onClick={reload}>
-            Recarregar
+            {t('containers.reload')}
           </Button>
         </div>
-        <p className="text-sm text-slate-600">
-          Visualize S, M e L em cartões dedicados, com disponibilidade, planos e locais.
-        </p>
+        <p className="text-sm text-slate-600">{t('containers.description')}</p>
       </header>
 
       <FiltersBar filters={filters} onChange={setFilter} />
 
       {error ? (
         <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-700">
-          Falha ao carregar containers. {error.message || ''}
+          {t('containers.emptyAll')} {error.message || ''}
         </div>
       ) : null}
 
       <div className="grid gap-4 md:grid-cols-3">
         {grouped.map(({ size, items }) => (
-          <SizeCard key={size} size={size} items={items} loading={loading} />
+          <SizeCard key={size} size={size} items={items} loading={loading} t={t} lang={lang} />
         ))}
         {hasNoData ? (
           <div className="md:col-span-3 rounded-2xl border border-dashed border-slate-300 bg-white p-4 text-slate-600">
-            0 unidades. Sem unidades cadastradas no momento.
+            {t('containers.emptyAll')}
           </div>
         ) : null}
       </div>
 
       <section className="rounded-3xl border border-slate-200 bg-white p-6 card-shadow space-y-3">
-        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Descontos por fidelização</p>
-        <h2 className="text-2xl font-semibold text-slate-900">Contratos com vantagem</h2>
+        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+          {t('containers.fidelizationTitle')}
+        </p>
+        <h2 className="text-2xl font-semibold text-slate-900">{t('containers.fidelizationSubtitle')}</h2>
         <div className="grid gap-4 md:grid-cols-2">
-          <Card className="p-4 bg-slate-900 text-white border-none">
-            <p className="text-sm uppercase tracking-[0.18em] text-slate-200">6 meses</p>
-            <h3 className="text-xl font-semibold">-8% a -12%</h3>
-            <p className="text-sm text-slate-200">
-              Exemplo: base €170 → -10% = €153/mês · economia total €102.
-            </p>
+          <Card className="p-4 bg-white border border-slate-200 text-slate-900">
+            <p className="text-sm uppercase tracking-[0.18em] text-slate-500">{t('containers.sixMonths')}</p>
+            <h3 className="text-xl font-semibold text-slate-900">{t('containers.sixMonths')}</h3>
+            <p className="text-sm text-slate-600">{t('containers.sixDesc')}</p>
           </Card>
           <Card className="p-4 bg-slate-50 border-slate-200">
-            <p className="text-sm uppercase tracking-[0.18em] text-slate-500">12 meses</p>
-            <h3 className="text-xl font-semibold text-slate-900">-15% a -20%</h3>
-            <p className="text-sm text-slate-600">Ideal para empresas e clientes recorrentes.</p>
+            <p className="text-sm uppercase tracking-[0.18em] text-slate-500">{t('containers.twelveTitle')}</p>
+            <h3 className="text-xl font-semibold text-slate-900">{t('containers.twelveTitle')}</h3>
+            <p className="text-sm text-slate-600">{t('containers.twelveDesc')}</p>
           </Card>
         </div>
       </section>
 
-      <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Lista completa</p>
-        <ContainerGrid containers={filteredContainers} loading={loading} />
-      </div>
+      {isAdmin() ? (
+        <div className="space-y-3">
+          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+            {t('containers.listTitle')}
+          </p>
+          <ContainerGrid
+            containers={filteredContainers}
+            loading={loading}
+            onBook={(id) => navigate(`/containers/${id}`)}
+          />
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+          {t('containers.adminOnly')}
+        </div>
+      )}
     </div>
   );
 }

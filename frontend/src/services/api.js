@@ -1,61 +1,63 @@
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
 const CONTAINERS_ENDPOINT = `${BASE_URL}/api/containers`;
 const CONTACT_ENDPOINT = `${BASE_URL}/api/contacts`;
+const RESERVATION_REQUESTS_ENDPOINT = `${BASE_URL}/api/reservation-requests`;
 
 function normalizeContainer(entry) {
   if (!entry) return null;
-  const raw = entry.attributes || entry.data || entry;
-
-  const hasCamera = raw.has_camera ?? raw.hasCamera ?? false;
-  const availabilityStatus = raw.availability_status || raw.availabilityStatus || 'available';
-  const sizeValue = raw.size ?? raw.sizeM2 ?? null;
-  const city = raw.city || raw.location || 'N/A';
-  const plan = hasCamera ? 'premium' : 'basic';
-  const priceMonthly = sizeValue === 'S' ? 100 : sizeValue === 'M' ? 150 : sizeValue === 'L' ? 200 : 0;
+  const attrs = entry.attributes || entry.data || entry;
+  const hasCamera = attrs.has_camera ?? attrs.hasCamera ?? false;
+  const status = attrs.availability_status ?? attrs.availabilityStatus ?? attrs.status ?? 'available';
+  const size = attrs.size ?? attrs.sizeM2;
+  const city = attrs.city ?? attrs.location;
+  const code = attrs.code;
+  const priceRaw = attrs.price ?? attrs.priceMonthly ?? attrs.price_monthly;
+  const price = priceRaw !== undefined ? Number(priceRaw) : 0;
 
   return {
-    id: entry.id || raw.id,
-    code: raw.code,
-    size: sizeValue,
-    sizeM2: sizeValue, // compat com código existente
+    id: entry.id ?? attrs.id,
+    ...attrs,
+    code,
+    size,
     city,
-    location: city, // compat com código existente
     hasCamera,
-    plan,
-    availabilityStatus,
-    status: availabilityStatus, // compat com código existente
-    priceMonthly,
+    availabilityStatus: status,
+    status,
+    price,
   };
 }
 
 export async function getContainers() {
-  const res = await fetch(CONTAINERS_ENDPOINT);
+  const res = await fetch(`${CONTAINERS_ENDPOINT}?pagination[pageSize]=200`);
   if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`GET /containers failed: ${res.status} - ${errorText}`);
+    const text = await res.text();
+    throw new Error(`GET /containers failed: ${res.status} - ${text}`);
   }
   const json = await res.json();
-  const rawItems = json?.data ?? [];
-  return rawItems.map(normalizeContainer).filter(Boolean);
+  const data = Array.isArray(json?.data) ? json.data : [];
+  return data.map(normalizeContainer).filter(Boolean);
 }
 
 export async function sendContactMessage(payload) {
-  try {
-    const res = await fetch(CONTACT_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data: { ...payload, status: 'new' } }),
-    });
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`POST /contacts failed: ${res.status} - ${text}`);
-    }
-
-    const json = await res.json();
-    return { ok: true, data: json?.data };
-  } catch (err) {
-    console.error('sendContactMessage error', err);
-    throw err;
+  const res = await fetch(CONTACT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ data: { ...payload, status: 'new' } }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`POST /contacts failed: ${res.status} - ${text}`);
   }
+  return res.json();
+}
+
+export async function createReservationRequest(payload) {
+  const res = await fetch(RESERVATION_REQUESTS_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ data: payload }),
+  });
+
+  if (!res.ok) throw new Error('Erro ao criar reserva');
+  return res.json();
 }

@@ -1,8 +1,11 @@
 import React from 'react';
 import ContainerCard from './ContainerCard';
 import Skeleton from '../ui/Skeleton';
+import { useI18n } from '../../context/I18nContext';
 
-export default function ContainerGrid({ containers, loading }) {
+export default function ContainerGrid({ containers, loading, onBook }) {
+  const { t } = useI18n();
+
   if (loading) {
     return (
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -16,7 +19,7 @@ export default function ContainerGrid({ containers, loading }) {
   if (!containers.length) {
     return (
       <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">
-        Nenhum container encontrado com os filtros atuais.
+        {t('containers.emptyAll')}
       </div>
     );
   }
@@ -24,7 +27,7 @@ export default function ContainerGrid({ containers, loading }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {containers.map((item) => (
-        <ContainerCard key={item.id || item.code} container={item} />
+        <ContainerCard key={item.id || item.code} container={item} onBook={onBook} />
       ))}
     </div>
   );
