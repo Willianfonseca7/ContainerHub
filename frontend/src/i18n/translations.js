@@ -67,6 +67,8 @@ const translations = {
       twelveTitle: '12 Monate: -15% bis -20%',
       twelveDesc: 'Ideal für Firmen und Stammkunden.',
       listTitle: 'Gesamte Liste',
+      adminOnly:
+        'Dieser Bereich ist für Administratoren vorgesehen. Bald folgt eine eigene Admin-Seite.',
     },
     cards: {
       sizeLabel: 'Container {{size}} · {{label}}',
@@ -74,6 +76,7 @@ const translations = {
       pinOnly: 'Zugang per PIN',
       camera: 'Kamera 24/7',
       price: '€ {{value}}/Monat',
+      priceTbd: 'Preis auf Anfrage',
       available: 'Buchen',
       unavailable: 'Momentan nicht verfügbar',
       locations: 'Standorte: {{value}}',
@@ -199,6 +202,7 @@ const translations = {
       twelveTitle: '12 months: -15% to -20%',
       twelveDesc: 'Ideal for companies and returning clients.',
       listTitle: 'Full list',
+      adminOnly: 'This area is for administrators. A dedicated admin page is coming soon.',
     },
     cards: {
       sizeLabel: 'Container {{size}} · {{label}}',
@@ -206,6 +210,7 @@ const translations = {
       pinOnly: 'PIN access',
       camera: 'Camera 24/7',
       price: '€ {{value}}/month',
+      priceTbd: 'Price on request',
       available: 'Reserve',
       unavailable: 'Unavailable right now',
       locations: 'Locations: {{value}}',

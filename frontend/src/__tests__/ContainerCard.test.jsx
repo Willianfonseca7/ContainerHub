@@ -8,7 +8,7 @@ const baseContainer = {
   code: 'DUS-01',
   sizeM2: 'S',
   location: 'Düsseldorf',
-  priceMonthly: 59,
+  price: 59,
   hasCamera: true,
   plan: 'premium',
   status: 'available',

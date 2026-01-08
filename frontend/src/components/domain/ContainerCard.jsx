@@ -10,11 +10,18 @@ const sizeMeta = {
   L: { label: '≈ 29,8 m² · 40 ft' },
 };
 
-export default function ContainerCard({ container }) {
+export default function ContainerCard({ container, onBook }) {
   const { t } = useI18n();
-  const { size, city, priceMonthly, hasCamera, plan, status, code } = container;
+  const { size, city, price, hasCamera, plan, status, code } = container;
   const meta = sizeMeta[size] || {};
   const isAvailable = status === 'available' || status === 'available';
+  const handleBook = () => {
+    if (typeof onBook === 'function') {
+      onBook(container.id || code);
+    }
+  };
+  const displayPrice =
+    typeof price === 'number' && price > 0 ? t('cards.price', { value: price }) : t('cards.priceTbd');
 
   return (
     <Card className="p-4 flex flex-col gap-4">
@@ -38,9 +45,14 @@ export default function ContainerCard({ container }) {
 
       <div className="flex items-center justify-between">
         <div className="text-2xl font-bold text-slate-900">
-          {t('cards.price', { value: priceMonthly })}
+          {displayPrice}
         </div>
-        <Button size="sm" variant={isAvailable ? 'primary' : 'ghost'} disabled={!isAvailable}>
+        <Button
+          size="sm"
+          variant={isAvailable ? 'primary' : 'ghost'}
+          disabled={!isAvailable}
+          onClick={handleBook}
+        >
           {isAvailable ? t('cards.available') : t('cards.unavailable')}
         </Button>
       </div>
