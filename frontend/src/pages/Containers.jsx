@@ -140,7 +140,7 @@ function SizeCard({ size, items, loading, t, lang, onClick, disabled }) {
             <Button
               size="sm"
               variant="primary"
-              className="w-full"
+              className="w-full rounded-xl bg-gradient-to-r from-slate-900 to-black text-white shadow-lg shadow-slate-900/10 hover:scale-[1.01] hover:shadow-slate-900/20 transition-transform"
               onClick={(e) => {
                 e.stopPropagation();
                 onClick?.();
