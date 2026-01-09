@@ -52,6 +52,11 @@ export default function ContainerCard({ container, onBook }) {
           variant={isAvailable ? 'primary' : 'ghost'}
           disabled={!isAvailable}
           onClick={handleBook}
+          className={
+            isAvailable
+              ? 'rounded-xl bg-gradient-to-r from-slate-900 to-black text-white shadow-lg shadow-slate-900/10 hover:scale-[1.01] hover:shadow-slate-900/20 transition-transform'
+              : ''
+          }
         >
           {isAvailable ? 'Reservieren' : 'Nicht verfügbar'}
         </Button>
