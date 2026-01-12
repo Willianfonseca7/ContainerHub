@@ -135,6 +135,23 @@ const translations = {
     homeHighlights: {
       title: 'Bereit zur Buchung',
     },
+    auth: {
+      title: 'Login',
+      subtitle: 'Mit E-Mail und Passwort einloggen oder Social Login (bald).',
+      email: 'E-Mail',
+      password: 'Passwort',
+      login: 'Einloggen',
+      loading: 'Laden...',
+      noAccount: 'Noch kein Konto?',
+      register: 'Konto anlegen',
+      registerSoon: 'Bald verfügbar: Konto anlegen',
+      or: 'oder',
+      socialSoon: 'Bald verfügbar: Social Login ({{provider}})',
+      errors: {
+        required: 'Bitte E-Mail und Passwort eingeben.',
+        failed: 'Login fehlgeschlagen.',
+      },
+    },
   },
   en: {
     nav: {
@@ -269,6 +286,23 @@ const translations = {
     homeHighlights: {
       title: 'Ready to book',
     },
+    auth: {
+      title: 'Login',
+      subtitle: 'Sign in with email and password or social login (coming soon).',
+      email: 'Email',
+      password: 'Password',
+      login: 'Login',
+      loading: 'Loading...',
+      noAccount: 'No account yet?',
+      register: 'Create account',
+      registerSoon: 'Coming soon: registration',
+      or: 'or',
+      socialSoon: 'Coming soon: social login ({{provider}})',
+      errors: {
+        required: 'Please enter email and password.',
+        failed: 'Login failed.',
+      },
+    },
   },
   pt: {
     nav: {
@@ -402,6 +436,23 @@ const translations = {
     },
     homeHighlights: {
       title: 'Pronto para reservar',
+    },
+    auth: {
+      title: 'Login',
+      subtitle: 'Entre com e-mail e senha ou use login social (em breve).',
+      email: 'E-mail',
+      password: 'Senha',
+      login: 'Entrar',
+      loading: 'Carregando...',
+      noAccount: 'Ainda não tem conta?',
+      register: 'Criar conta',
+      registerSoon: 'Em breve: criar conta',
+      or: 'ou',
+      socialSoon: 'Em breve: login social ({{provider}})',
+      errors: {
+        required: 'Informe e-mail e senha.',
+        failed: 'Falha no login.',
+      },
     },
   },
 };
