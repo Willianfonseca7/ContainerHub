@@ -92,7 +92,7 @@ const translations = {
     },
     about: {
       badge: 'Über',
-      title: 'Kontainer ist digitales Self-Storage',
+      title: 'ContainerHub ist digitales Self-Storage',
       intro:
         'Alles online: Vertragsabschluss, PIN-Zugang und Kamera für Premium. Schlanke Infrastruktur, Automatisierung und Fokus auf Sicherheit.',
       cards: [
@@ -243,7 +243,7 @@ const translations = {
     },
     about: {
       badge: 'About',
-      title: 'Kontainer is digital self-storage',
+      title: 'ContainerHub is digital self-storage',
       intro:
         'All online: contract, PIN access and camera for Premium. Lean infra, automation and security focus.',
       cards: [
@@ -394,7 +394,7 @@ const translations = {
     },
     about: {
       badge: 'Sobre',
-      title: 'Kontainer é self-storage digital',
+      title: 'ContainerHub é self-storage digital',
       intro:
         'Tudo online: contrato, PIN e câmera no Premium. Infra enxuta, automação e foco em segurança.',
       cards: [

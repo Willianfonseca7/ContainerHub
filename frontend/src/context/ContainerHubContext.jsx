@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import { getContainers } from '../services/api';
 import { useApi } from '../hooks/useApi';
 
-const KontainerContext = createContext(null);
+const ContainerHubContext = createContext(null);
 
 export const defaultFilters = {
   location: 'all',
@@ -32,7 +32,7 @@ export function applyFilters(containers, filters) {
   });
 }
 
-export function KontainerProvider({ children }) {
+export function ContainerHubProvider({ children }) {
   const [containers, setContainers] = useState([]);
   const [filters, setFilters] = useState(defaultFilters);
   const { execute, loading, error, data } = useApi(getContainers);
@@ -67,11 +67,11 @@ export function KontainerProvider({ children }) {
     reload: execute,
   };
 
-  return <KontainerContext.Provider value={value}>{children}</KontainerContext.Provider>;
+  return <ContainerHubContext.Provider value={value}>{children}</ContainerHubContext.Provider>;
 }
 
-export function useKontainer() {
-  const ctx = useContext(KontainerContext);
-  if (!ctx) throw new Error('useKontainer must be used inside KontainerProvider');
+export function useContainerHub() {
+  const ctx = useContext(ContainerHubContext);
+  if (!ctx) throw new Error('useContainerHub must be used inside ContainerHubProvider');
   return ctx;
 }

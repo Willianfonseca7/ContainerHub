@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="border-t border-slate-200 py-8 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm text-slate-500">
         <div>
-          <span className="font-semibold text-slate-900">Kontainer</span> — self-storage
+          <span className="font-semibold text-slate-900">ContainerHub</span> — self-storage
           digital.
         </div>
         <div className="flex gap-4">

@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import FiltersBar from '../components/domain/FiltersBar';
 import ContainerGrid from '../components/domain/ContainerGrid';
-import { normalizeText, useKontainer } from '../context/KontainerContext';
+import { normalizeText, useContainerHub } from '../context/ContainerHubContext';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import { useI18n } from '../context/I18nContext';
@@ -162,7 +162,7 @@ function isAdmin() {
 }
 
 export default function Containers() {
-  const { filteredContainers, filters, setFilter, loading, error, reload, containers } = useKontainer();
+  const { filteredContainers, filters, setFilter, loading, error, reload, containers } = useContainerHub();
   const { t, lang } = useI18n();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();

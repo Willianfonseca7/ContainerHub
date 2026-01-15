@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyFilters, defaultFilters } from '../context/KontainerContext';
+import { applyFilters, defaultFilters } from '../context/ContainerHubContext';
 
 const sample = [
   { id: 1, location: 'Düsseldorf', sizeM2: 'S', plan: 'basic', status: 'available' },
