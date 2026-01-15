@@ -1,4 +1,4 @@
-# Kontainer – Fullstack (Strapi + Vite/React/Tailwind)
+# ContainerHub – Fullstack (Strapi + Vite/React/Tailwind)
 
 ## Estrutura
 - `backend/` – Strapi (rodar em http://localhost:1337)

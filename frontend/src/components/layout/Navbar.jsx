@@ -17,7 +17,7 @@ export default function Navbar() {
     <header className="bg-white/80 backdrop-blur sticky top-0 z-20 border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link to="/" className="text-xl font-semibold tracking-tight">
-          Kontainer
+          ContainerHub
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {links.map((link) => (

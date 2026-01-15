@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import ContainerGrid from '../components/domain/ContainerGrid';
 import FiltersBar from '../components/domain/FiltersBar';
-import { useKontainer } from '../context/KontainerContext';
+import { useContainerHub } from '../context/ContainerHubContext';
 import { useI18n } from '../context/I18nContext';
 
 export default function Home() {
   const { filteredContainers, filters, setFilter, resetFilters, loading, containers } =
-    useKontainer();
+    useContainerHub();
   const { t } = useI18n();
   const highlights = filteredContainers.slice(0, 6);
 
