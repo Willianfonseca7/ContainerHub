@@ -31,11 +31,11 @@ export default function ReservationPreviewModal({ open, container, onClose, onCo
       <Card className="w-full max-w-lg p-6 space-y-4 bg-white">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Reservierung prüfen</p>
-            <h2 className="text-xl font-semibold text-slate-900">
+            <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">Reservierung prüfen</p>
+            <h2 className="text-xl font-semibold text-[#0B132B]">
               {container?.code ? `#${container.code}` : 'Container'}
             </h2>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-[#52627A]">
               {container?.city} • Size {container?.size}
             </p>
           </div>
@@ -44,28 +44,28 @@ export default function ReservationPreviewModal({ open, container, onClose, onCo
           </div>
         </div>
 
-        <div className="space-y-1 text-sm text-slate-700">
+        <div className="space-y-1 text-sm text-[#1B2A47]">
           <p>
             <span className="font-semibold">Preis:</span> {priceText}
           </p>
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-slate-800">Dauer wählen</p>
+            <p className="text-sm font-semibold text-[#0B132B]">Dauer wählen</p>
             <div className="flex flex-col gap-1">
               {[1, 6, 12].map((m) => (
-                <label key={m} className="flex items-center gap-2 text-sm text-slate-700">
+                <label key={m} className="flex items-center gap-2 text-sm text-[#1B2A47]">
                   <input
                     type="radio"
                     name="duration"
                     value={m}
                     checked={duration === m}
                     onChange={() => setDuration(m)}
-                    className="text-slate-900 focus:ring-slate-900"
+                    className="text-[#0B132B] focus:ring-[#0F766E]"
                   />
                   {m === 1 ? 'Monatlich (1 Monat)' : `${m} Monate`}
                 </label>
               ))}
             </div>
-            <p className="text-sm text-slate-700">
+            <p className="text-sm text-[#1B2A47]">
               <span className="font-semibold">Gesamt:</span>{' '}
               {totalValue !== null ? `€ ${totalValue.toFixed(2)}` : '—'}
             </p>

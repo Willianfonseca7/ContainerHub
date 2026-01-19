@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { getMyProfile } from '../services/profile';
+import { loginLocal, registerLocal } from '../services/auth';
 
 const AuthContext = createContext(null);
 const TOKEN_KEY = 'kontainer_token';
 const USER_KEY = 'kontainer_user';
+const NEW_TOKEN_KEY = 'containerhub_token';
+const NEW_USER_KEY = 'containerhub_user';
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
 
 async function authRequest(path, body) {
@@ -34,8 +37,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     try {
-      const storedToken = localStorage.getItem(TOKEN_KEY);
-      const storedUser = localStorage.getItem(USER_KEY);
+      const storedToken = localStorage.getItem(NEW_TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
+      const storedUser = localStorage.getItem(NEW_USER_KEY) || localStorage.getItem(USER_KEY);
       if (storedToken) setToken(storedToken);
       if (storedUser) setUser(JSON.parse(storedUser));
     } catch (err) {
@@ -43,6 +46,8 @@ export function AuthProvider({ children }) {
       console.error('Failed to parse stored auth data', err);
       localStorage.removeItem(TOKEN_KEY);
       localStorage.removeItem(USER_KEY);
+      localStorage.removeItem(NEW_TOKEN_KEY);
+      localStorage.removeItem(NEW_USER_KEY);
     }
   }, []);
 
@@ -51,6 +56,12 @@ export function AuthProvider({ children }) {
     setUser(userData);
     localStorage.setItem(TOKEN_KEY, jwt);
     localStorage.setItem(USER_KEY, JSON.stringify(userData));
+    localStorage.setItem(NEW_TOKEN_KEY, jwt);
+    localStorage.setItem(NEW_USER_KEY, JSON.stringify(userData));
+  };
+
+  const setSession = ({ jwt, user: userData }) => {
+    persistSession(jwt, userData);
   };
 
   const refreshProfile = async (jwt = token) => {
@@ -76,10 +87,7 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const data = await authRequest('/api/auth/local', {
-        identifier: email,
-        password,
-      });
+      const data = await loginLocal({ identifier: email, password });
       persistSession(data.jwt, data.user);
       await refreshProfile(data.jwt);
       // eslint-disable-next-line no-console
@@ -119,11 +127,7 @@ export function AuthProvider({ children }) {
   const register = async (name, email, password) => {
     setLoading(true);
     try {
-      const data = await authRequest('/api/auth/local/register', {
-        username: name,
-        email,
-        password,
-      });
+      const data = await registerLocal({ name, email, password });
       persistSession(data.jwt, data.user);
       await refreshProfile(data.jwt);
       // eslint-disable-next-line no-console
@@ -140,6 +144,8 @@ export function AuthProvider({ children }) {
     setProfile(null);
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(NEW_TOKEN_KEY);
+    localStorage.removeItem(NEW_USER_KEY);
   };
 
   useEffect(() => {
@@ -163,6 +169,7 @@ export function AuthProvider({ children }) {
       register,
       logout,
       refreshProfile,
+      setSession,
     }),
     [user, token, profile, profileLoading, profileError, loading],
   );

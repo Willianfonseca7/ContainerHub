@@ -50,10 +50,10 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md space-y-5 border border-slate-200 rounded-2xl bg-white p-6 shadow-sm">
+      <div className="w-full max-w-md space-y-5 border border-[#E2ECE9] rounded-2xl bg-white p-6 shadow-sm">
         <div className="space-y-1">
-          <h1 className="text-2xl font-semibold text-slate-900">{t('auth.title')}</h1>
-          <p className="text-sm text-slate-600">{t('auth.subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-[#0B132B]">{t('auth.title')}</h1>
+          <p className="text-sm text-[#52627A]">{t('auth.subtitle')}</p>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -77,24 +77,17 @@ export default function Login() {
           </Button>
         </form>
 
-        <div className="text-sm text-slate-600">
+        <div className="text-sm text-[#52627A]">
           {t('auth.noAccount')}{' '}
-          <Link
-            to="#"
-            onClick={(e) => {
-              e.preventDefault();
-              alert(t('auth.registerSoon'));
-            }}
-            className="text-slate-900 font-semibold hover:underline"
-          >
+          <Link to="/register" className="text-[#0F766E] font-semibold hover:underline">
             {t('auth.register')}
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-slate-400">
-          <div className="h-px flex-1 bg-slate-200" />
+        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#7B8AA1]">
+          <div className="h-px flex-1 bg-[#E2ECE9]" />
           <span>{t('auth.or')}</span>
-          <div className="h-px flex-1 bg-slate-200" />
+          <div className="h-px flex-1 bg-[#E2ECE9]" />
         </div>
 
         <div className="space-y-3">

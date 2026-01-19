@@ -118,7 +118,7 @@ export default function ContainerDetail() {
   if (loading) {
     return (
       <div className="py-10">
-        <p className="text-slate-500">Laden...</p>
+        <p className="text-[#60728E]">Laden...</p>
       </div>
     );
   }
@@ -143,11 +143,11 @@ export default function ContainerDetail() {
       <Card className="p-6 space-y-3">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Container</p>
-            <h1 className="text-2xl font-semibold text-slate-900">
+            <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">Container</p>
+            <h1 className="text-2xl font-semibold text-[#0B132B]">
               #{container.code || container.id}
             </h1>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-[#52627A]">
               {container.city} • Size {container.size}
             </p>
           </div>
@@ -162,14 +162,14 @@ export default function ContainerDetail() {
             >{`Status: ${container.availabilityStatus || container.status}`}</Badge>
           </div>
         </div>
-        <p className="text-xl font-bold text-slate-900">{priceText}</p>
+        <p className="text-xl font-bold text-[#0B132B]">{priceText}</p>
       </Card>
 
       <Card className="p-6 space-y-4">
         <div className="space-y-1">
-          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Reservierung</p>
-          <h2 className="text-xl font-semibold text-slate-900">Anfrage senden</h2>
-          <p className="text-sm text-slate-600">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">Reservierung</p>
+          <h2 className="text-xl font-semibold text-[#0B132B]">Anfrage senden</h2>
+          <p className="text-sm text-[#52627A]">
             Bitte füllen Sie die Pflichtfelder aus. Wir bestätigen per E-Mail.
           </p>
         </div>

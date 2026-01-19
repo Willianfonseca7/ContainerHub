@@ -11,7 +11,7 @@ export default function SocialButton({ provider, onClick, disabled }) {
   return (
     <Button
       variant="ghost"
-      className="w-full border border-slate-200 hover:border-slate-400 text-slate-900 justify-start"
+      className="w-full border border-[#DDE7E4] hover:border-[#0F766E] text-[#0B132B] justify-start"
       onClick={onClick}
       disabled={disabled}
     >

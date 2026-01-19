@@ -35,18 +35,18 @@ const sizeIllustrations = ['S', 'M', 'L'].reduce((acc, size) => {
   const svg = `<svg width="320" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1f2937"/>
+      <stop offset="0%" stop-color="#0B132B"/>
+      <stop offset="100%" stop-color="#0F766E"/>
     </linearGradient>
   </defs>
-  <rect width="320" height="180" rx="18" fill="#e5e7eb"/>
+  <rect width="320" height="180" rx="18" fill="#E6F4F1"/>
   <rect x="18" y="36" width="284" height="108" rx="12" fill="url(#g)"/>
   <rect x="36" y="54" width="64" height="72" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
   <rect x="112" y="54" width="64" height="72" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
   <rect x="188" y="54" width="64" height="72" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
   <rect x="264" y="54" width="16" height="72" fill="rgba(255,255,255,0.15)"/>
   <text x="160" y="105" font-family="Space Grotesk, sans-serif" font-size="34" font-weight="700" fill="#f8fafc" text-anchor="middle">Size ${size}</text>
-  <text x="160" y="132" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="600" fill="#cbd5e1" text-anchor="middle">PIN-Zugang • Optionale 24/7-Kamera</text>
+  <text x="160" y="132" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="600" fill="#D1E9E3" text-anchor="middle">PIN-Zugang • Optionale 24/7-Kamera</text>
 </svg>`;
   acc[size] = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
   return acc;
@@ -103,9 +103,9 @@ function SizeCard({ size, items, loading, t, lang, onClick, disabled }) {
           onClick?.();
         }
       }}
-      className="overflow-hidden cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-black/10 transition hover:-translate-y-[1px]"
+      className="overflow-hidden cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-[#0F766E]/20 transition hover:-translate-y-[1px]"
     >
-      <div className="h-44 w-full bg-slate-200">
+      <div className="h-44 w-full bg-[#E6F4F1]">
         <img
           src={imgSrc}
           alt={`Container ${size}`}
@@ -116,22 +116,22 @@ function SizeCard({ size, items, loading, t, lang, onClick, disabled }) {
       <div className="p-5 space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{t('containers.badge')}</p>
-            <h3 className="text-xl font-semibold text-slate-900">
+            <p className="text-xs uppercase tracking-[0.18em] text-[#60728E]">{t('containers.badge')}</p>
+            <h3 className="text-xl font-semibold text-[#0B132B]">
               Container {meta?.label || size}
             </h3>
           </div>
           <Badge variant="neutral">{t('cards.units', { count: total })}</Badge>
         </div>
-        <div className="space-y-1 text-sm text-slate-600">
-          <p className="text-slate-900 font-semibold">{priceText}</p>
+        <div className="space-y-1 text-sm text-[#52627A]">
+          <p className="text-[#0B132B] font-semibold">{priceText}</p>
           <p>{t('containers.locations', { value: locations || '—' })}</p>
           <p>{t('containers.available', { value: available > 0 ? available : '—' })}</p>
           <p>{t('containers.plans', { basic, premium })}</p>
-          <p className="text-xs text-slate-500">{t('containers.info')}</p>
+          <p className="text-xs text-[#60728E]">{t('containers.info')}</p>
         </div>
         {!total && !loading ? (
-          <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3 text-sm text-slate-500">
+          <div className="rounded-xl border border-dashed border-[#CFE7E2] bg-[#F5FBFA] p-3 text-sm text-[#60728E]">
             {t('containers.emptySize')}
           </div>
         ) : null}
@@ -140,7 +140,7 @@ function SizeCard({ size, items, loading, t, lang, onClick, disabled }) {
             <Button
               size="sm"
               variant="primary"
-              className="w-full rounded-xl bg-gradient-to-r from-slate-900 to-black text-white shadow-lg shadow-slate-900/10 hover:scale-[1.01] hover:shadow-slate-900/20 transition-transform"
+              className="w-full rounded-xl bg-gradient-to-r from-[#0B132B] to-[#0F766E] text-white shadow-lg shadow-[#0B132B]/10 hover:scale-[1.01] hover:shadow-[#0B132B]/20 transition-transform"
               onClick={(e) => {
                 e.stopPropagation();
                 onClick?.();
@@ -252,14 +252,14 @@ export default function Containers() {
   return (
     <div className="space-y-6 py-10" id="inventory">
       <header className="flex flex-col gap-2">
-        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{t('containers.badge')}</p>
+        <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">{t('containers.badge')}</p>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-3xl font-bold text-slate-900">{t('containers.title')}</h1>
+          <h1 className="text-3xl font-bold text-[#0B132B]">{t('containers.title')}</h1>
           <Button variant="ghost" size="sm" onClick={reload}>
             {t('containers.reload')}
           </Button>
         </div>
-        <p className="text-sm text-slate-600">{t('containers.description')}</p>
+        <p className="text-sm text-[#52627A]">{t('containers.description')}</p>
       </header>
 
       <FiltersBar filters={filters} onChange={setFilter} />
@@ -284,34 +284,34 @@ export default function Containers() {
           />
         ))}
         {hasNoData ? (
-          <div className="md:col-span-3 rounded-2xl border border-dashed border-slate-300 bg-white p-4 text-slate-600">
+          <div className="md:col-span-3 rounded-2xl border border-dashed border-[#CFE7E2] bg-white p-4 text-[#52627A]">
             {t('containers.emptyAll')}
           </div>
         ) : null}
       </div>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 card-shadow space-y-3">
-        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+      <section className="rounded-3xl border border-[#E2ECE9] bg-white p-6 card-shadow space-y-3">
+        <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">
           {t('containers.fidelizationTitle')}
         </p>
-        <h2 className="text-2xl font-semibold text-slate-900">{t('containers.fidelizationSubtitle')}</h2>
+        <h2 className="text-2xl font-semibold text-[#0B132B]">{t('containers.fidelizationSubtitle')}</h2>
         <div className="grid gap-4 md:grid-cols-2">
-          <Card className="p-4 bg-white border border-slate-200 text-slate-900">
-            <p className="text-sm uppercase tracking-[0.18em] text-slate-500">{t('containers.sixMonths')}</p>
-            <h3 className="text-xl font-semibold text-slate-900">{t('containers.sixMonths')}</h3>
-            <p className="text-sm text-slate-600">{t('containers.sixDesc')}</p>
+          <Card className="p-4 bg-white border border-[#E2ECE9] text-[#0B132B]">
+            <p className="text-sm uppercase tracking-[0.18em] text-[#60728E]">{t('containers.sixMonths')}</p>
+            <h3 className="text-xl font-semibold text-[#0B132B]">{t('containers.sixMonths')}</h3>
+            <p className="text-sm text-[#52627A]">{t('containers.sixDesc')}</p>
           </Card>
-          <Card className="p-4 bg-slate-50 border-slate-200">
-            <p className="text-sm uppercase tracking-[0.18em] text-slate-500">{t('containers.twelveTitle')}</p>
-            <h3 className="text-xl font-semibold text-slate-900">{t('containers.twelveTitle')}</h3>
-            <p className="text-sm text-slate-600">{t('containers.twelveDesc')}</p>
+          <Card className="p-4 bg-[#F5FBFA] border-[#E2ECE9]">
+            <p className="text-sm uppercase tracking-[0.18em] text-[#60728E]">{t('containers.twelveTitle')}</p>
+            <h3 className="text-xl font-semibold text-[#0B132B]">{t('containers.twelveTitle')}</h3>
+            <p className="text-sm text-[#52627A]">{t('containers.twelveDesc')}</p>
           </Card>
         </div>
       </section>
 
       {isAdmin() ? (
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">
             {t('containers.listTitle')}
           </p>
           <ContainerGrid
@@ -325,7 +325,7 @@ export default function Containers() {
           />
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+        <div className="rounded-2xl border border-dashed border-[#CFE7E2] bg-[#F5FBFA] p-4 text-sm text-[#52627A]">
           {t('containers.adminOnly')}
         </div>
       )}

@@ -42,12 +42,12 @@ export default function AuthCallback() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md space-y-3 border border-slate-200 rounded-2xl bg-white p-6 shadow-sm">
-        <h1 className="text-xl font-semibold text-slate-900">{t('auth.title')}</h1>
+      <div className="w-full max-w-md space-y-3 border border-[#E2ECE9] rounded-2xl bg-white p-6 shadow-sm">
+        <h1 className="text-xl font-semibold text-[#0B132B]">{t('auth.title')}</h1>
         {error ? (
           <p className="text-sm text-rose-600">{error}</p>
         ) : (
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-[#52627A]">
             {loading ? t('auth.loading') : 'Conectando com provedor...'}
           </p>
         )}

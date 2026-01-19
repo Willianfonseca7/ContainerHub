@@ -157,10 +157,10 @@ export default function ProfileEdit() {
     <div className="py-10 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">
             {t('profile.editSubtitle')}
           </p>
-          <h1 className="text-2xl font-semibold text-slate-900">{t('profile.editTitle')}</h1>
+          <h1 className="text-2xl font-semibold text-[#0B132B]">{t('profile.editTitle')}</h1>
         </div>
         <Button as={Link} to="/profile" variant="ghost" size="sm">
           {t('profile.menuProfile')}
@@ -176,10 +176,10 @@ export default function ProfileEdit() {
         <div className="flex items-center gap-4">
           <Avatar src={avatarUrl} name={form.fullName || user?.username} size={64} />
           <div className="space-y-1">
-            <p className="text-sm text-slate-600">{t('profile.avatar')}</p>
-            <label className="text-sm text-slate-600 cursor-pointer">
+            <p className="text-sm text-[#52627A]">{t('profile.avatar')}</p>
+            <label className="text-sm text-[#52627A] cursor-pointer">
               <input type="file" accept="image/*" onChange={handleFile} className="hidden" />
-              <span className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-1.5 text-sm hover:border-slate-400">
+              <span className="inline-flex items-center gap-2 rounded-xl border border-[#DDE7E4] px-3 py-1.5 text-sm hover:border-[#0F766E]">
                 {saving ? t('profile.uploading') : t('profile.upload')}
               </span>
             </label>
@@ -196,7 +196,7 @@ export default function ProfileEdit() {
             label={t('profile.email')}
             value={form.email}
             readOnly
-            className="bg-slate-50 text-slate-500"
+            className="bg-[#F5FBFA] text-[#60728E]"
           />
           <Input
             label={t('profile.phone')}
