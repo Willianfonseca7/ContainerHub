@@ -11,6 +11,7 @@ import AuthCallback from './pages/AuthCallback';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import { useAuth } from './context/AuthContext';
+import Register from './pages/Register';
 
 export default function App() {
   const { isAuthenticated, profile, profileLoading } = useAuth();
@@ -21,6 +22,11 @@ export default function App() {
     if (!isAuthenticated || profileLoading) return;
     const isProfileEdit = location.pathname.startsWith('/profile/edit');
     const isAuthRoute = location.pathname.startsWith('/login') || location.pathname.startsWith('/auth/');
+    const skipProfileRedirect = sessionStorage.getItem('skip_profile_redirect');
+    if (skipProfileRedirect) {
+      sessionStorage.removeItem('skip_profile_redirect');
+      return;
+    }
     if (!profile && !isProfileEdit && !isAuthRoute) {
       navigate('/profile/edit', { replace: true });
     }
@@ -32,6 +38,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/containers" element={<Containers />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/auth/:provider/callback" element={<AuthCallback />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/edit" element={<ProfileEdit />} />

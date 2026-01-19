@@ -11,7 +11,7 @@ const cityOptions = [
 export default function FiltersBar({ filters, onChange }) {
   const { t } = useI18n();
   return (
-    <div className="inline-flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 w-full max-w-sm">
+    <div className="inline-flex flex-col gap-3 rounded-2xl border border-[#E2ECE9] bg-white p-4 w-full max-w-sm shadow-sm">
       <Select
         label={t('filters.location')}
         value={filters.location}

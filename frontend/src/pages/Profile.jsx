@@ -30,8 +30,8 @@ export default function Profile() {
     return (
       <div className="py-16">
         <Card className="p-6 space-y-3">
-          <h1 className="text-xl font-semibold text-slate-900">{t('profile.title')}</h1>
-          <p className="text-sm text-slate-600">{t('profile.loginRequired')}</p>
+          <h1 className="text-xl font-semibold text-[#0B132B]">{t('profile.title')}</h1>
+          <p className="text-sm text-[#52627A]">{t('profile.loginRequired')}</p>
           <Button as={Link} to="/login?redirect=/profile" variant="primary" size="sm">
             {t('auth.login')}
           </Button>
@@ -52,8 +52,8 @@ export default function Profile() {
     return (
       <div className="py-16">
         <Card className="p-6 space-y-3">
-          <h1 className="text-xl font-semibold text-slate-900">{t('profile.title')}</h1>
-          <p className="text-sm text-slate-600">{t('profile.missing')}</p>
+          <h1 className="text-xl font-semibold text-[#0B132B]">{t('profile.title')}</h1>
+          <p className="text-sm text-[#52627A]">{t('profile.missing')}</p>
           <Button onClick={() => navigate('/profile/edit')} size="sm">
             {t('profile.complete')}
           </Button>
@@ -66,8 +66,8 @@ export default function Profile() {
     <div className="py-10 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{t('profile.subtitle')}</p>
-          <h1 className="text-2xl font-semibold text-slate-900">{t('profile.title')}</h1>
+          <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">{t('profile.subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-[#0B132B]">{t('profile.title')}</h1>
         </div>
         <Button as={Link} to="/profile/edit" variant="ghost" size="sm">
           {t('profile.menuEdit')}
@@ -79,17 +79,17 @@ export default function Profile() {
           <div className="flex items-center gap-4">
             <Avatar src={avatarUrl} name={profile.fullName} size={64} />
             <div>
-              <p className="text-lg font-semibold text-slate-900">{profile.fullName}</p>
-              <p className="text-sm text-slate-500">{profile.email || user?.email || '—'}</p>
+              <p className="text-lg font-semibold text-[#0B132B]">{profile.fullName}</p>
+              <p className="text-sm text-[#60728E]">{profile.email || user?.email || '—'}</p>
             </div>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 text-sm text-slate-700">
+          <div className="grid gap-4 sm:grid-cols-2 text-sm text-[#1B2A47]">
             <div>
-              <p className="text-xs uppercase tracking-[0.16em] text-slate-400">{t('profile.phone')}</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-[#7B8AA1]">{t('profile.phone')}</p>
               <p>{profile.phone || '—'}</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.16em] text-slate-400">{t('profile.payment')}</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-[#7B8AA1]">{t('profile.payment')}</p>
               <Badge variant="info">
                 {paymentLabels[profile.paymentMethod] || profile.paymentMethod}
               </Badge>
@@ -98,8 +98,8 @@ export default function Profile() {
         </Card>
 
         <Card className="p-6 space-y-3">
-          <p className="text-xs uppercase tracking-[0.16em] text-slate-400">{t('profile.address')}</p>
-          <div className="text-sm text-slate-700 space-y-1">
+          <p className="text-xs uppercase tracking-[0.16em] text-[#7B8AA1]">{t('profile.address')}</p>
+          <div className="text-sm text-[#1B2A47] space-y-1">
             <p>{profile.addressStreet || '—'} {profile.addressNumber || ''}</p>
             <p>{profile.addressZip || '—'} {profile.addressCity || ''}</p>
             <p>{profile.addressCountry || '—'}</p>

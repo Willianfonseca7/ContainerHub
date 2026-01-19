@@ -3,6 +3,14 @@ const CONTAINERS_ENDPOINT = `${BASE_URL}/api/containers`;
 const CONTACT_ENDPOINT = `${BASE_URL}/api/contacts`;
 const RESERVATION_REQUESTS_ENDPOINT = `${BASE_URL}/api/reservation-requests`;
 
+const getAuthToken = () =>
+  localStorage.getItem('containerhub_token') || localStorage.getItem('kontainer_token');
+
+const authHeaders = () => {
+  const token = getAuthToken();
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
 function normalizeContainer(entry) {
   if (!entry) return null;
   const attrs = entry.attributes || entry.data || entry;
@@ -30,7 +38,9 @@ function normalizeContainer(entry) {
 }
 
 export async function getContainers() {
-  const res = await fetch(`${CONTAINERS_ENDPOINT}?pagination[pageSize]=200`);
+  const res = await fetch(`${CONTAINERS_ENDPOINT}?pagination[pageSize]=200`, {
+    headers: { ...authHeaders() },
+  });
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`GET /containers failed: ${res.status} - ${text}`);
@@ -41,7 +51,9 @@ export async function getContainers() {
 }
 
 export async function getContainerById(id) {
-  const res = await fetch(`${CONTAINERS_ENDPOINT}/${id}`);
+  const res = await fetch(`${CONTAINERS_ENDPOINT}/${id}`, {
+    headers: { ...authHeaders() },
+  });
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`GET /containers/${id} failed: ${res.status} - ${text}`);
@@ -54,7 +66,7 @@ export async function getContainerById(id) {
 export async function sendContactMessage(payload) {
   const res = await fetch(CONTACT_ENDPOINT, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
     body: JSON.stringify({ data: { ...payload, status: 'new' } }),
   });
   if (!res.ok) {
@@ -67,7 +79,7 @@ export async function sendContactMessage(payload) {
 export async function createReservationRequest(payload) {
   const res = await fetch(RESERVATION_REQUESTS_ENDPOINT, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
     body: JSON.stringify({ data: payload }),
   });
 

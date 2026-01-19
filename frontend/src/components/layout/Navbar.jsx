@@ -47,9 +47,9 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white/80 backdrop-blur sticky top-0 z-20 border-b border-slate-200">
+    <header className="bg-white/80 backdrop-blur sticky top-0 z-20 border-b border-[#E2ECE9]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link to="/" className="text-xl font-semibold tracking-tight">
+        <Link to="/" className="text-xl font-semibold tracking-tight text-[#0B132B]">
           ContainerHub
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -59,7 +59,7 @@ export default function Navbar() {
               to={link.to}
               className={({ isActive }) =>
                 `transition-colors ${
-                  isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'
+                  isActive ? 'text-[#0B132B]' : 'text-[#60728E] hover:text-[#0B132B]'
                 }`
               }
             >
@@ -73,24 +73,24 @@ export default function Navbar() {
             <div className="relative" ref={menuRef}>
               <button
                 type="button"
-                className="rounded-full focus:outline-none focus:ring-2 focus:ring-slate-900/20"
+                className="rounded-full focus:outline-none focus:ring-2 focus:ring-[#0F766E]/30"
                 onClick={() => setMenuOpen((prev) => !prev)}
                 aria-label={t('profile.menuProfile')}
               >
                 <Avatar src={avatarUrl} name={displayName} size={36} />
               </button>
               {menuOpen ? (
-                <div className="absolute right-0 mt-3 w-48 rounded-2xl border border-slate-200 bg-white shadow-lg py-2 text-sm text-slate-700">
+                <div className="absolute right-0 mt-3 w-48 rounded-2xl border border-[#E2ECE9] bg-white shadow-lg py-2 text-sm text-[#1B2A47]">
                   <Link
                     to="/profile"
-                    className="block px-4 py-2 text-left hover:bg-slate-50"
+                    className="block px-4 py-2 text-left hover:bg-[#F5FBFA]"
                     onClick={closeMenu}
                   >
                     {t('profile.menuProfile')}
                   </Link>
                   <Link
                     to="/profile/edit"
-                    className="block px-4 py-2 text-left hover:bg-slate-50"
+                    className="block px-4 py-2 text-left hover:bg-[#F5FBFA]"
                     onClick={closeMenu}
                   >
                     {t('profile.menuEdit')}
