@@ -6,6 +6,8 @@ import Input from '../components/ui/Input';
 import SocialButton from '../components/auth/SocialButton';
 import { useI18n } from '../context/I18nContext';
 
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
+
 export default function Login() {
   const { login, isAuthenticated, loading } = useAuth();
   const { t } = useI18n();
@@ -39,7 +41,11 @@ export default function Login() {
   };
 
   const handleSocial = (provider) => {
-    alert(t('auth.socialSoon', { provider }));
+    const callbackUrl = `${window.location.origin}/auth/${provider}/callback?redirect=${encodeURIComponent(
+      redirectTo,
+    )}`;
+    const url = `${BASE_URL}/api/connect/${provider}?callback=${encodeURIComponent(callbackUrl)}`;
+    window.location.href = url;
   };
 
   return (
@@ -92,8 +98,8 @@ export default function Login() {
         </div>
 
         <div className="space-y-3">
-          <SocialButton provider="google" onClick={() => handleSocial('Google')} />
-          <SocialButton provider="facebook" onClick={() => handleSocial('Facebook')} />
+          <SocialButton provider="google" onClick={() => handleSocial('google')} />
+          <SocialButton provider="facebook" onClick={() => handleSocial('facebook')} />
         </div>
       </div>
     </div>

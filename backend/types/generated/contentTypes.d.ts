@@ -576,6 +576,51 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
+  collectionName: 'profiles';
+  info: {
+    displayName: 'Profile';
+    pluralName: 'profiles';
+    singularName: 'profile';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    addressCity: Schema.Attribute.String;
+    addressCountry: Schema.Attribute.String;
+    addressNumber: Schema.Attribute.String;
+    addressStreet: Schema.Attribute.String;
+    addressZip: Schema.Attribute.String;
+    avatar: Schema.Attribute.Media;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    fullName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::profile.profile'
+    > &
+      Schema.Attribute.Private;
+    paymentMethod: Schema.Attribute.Enumeration<
+      ['credit_card', 'debit_card', 'paypal', 'apple_pay']
+    > &
+      Schema.Attribute.Required;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface ApiReservationRequestReservationRequest
   extends Struct.CollectionTypeSchema {
   collectionName: 'reservation_requests';
@@ -1134,6 +1179,7 @@ declare module '@strapi/strapi' {
       'api::container-model.container-model': ApiContainerModelContainerModel;
       'api::container.container': ApiContainerContainer;
       'api::location.location': ApiLocationLocation;
+      'api::profile.profile': ApiProfileProfile;
       'api::reservation-request.reservation-request': ApiReservationRequestReservationRequest;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
