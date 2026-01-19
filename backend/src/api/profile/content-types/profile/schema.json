@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profiles",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "Profile"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "required": true
+    },
+    "fullName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "addressStreet": {
+      "type": "string"
+    },
+    "addressNumber": {
+      "type": "string"
+    },
+    "addressZip": {
+      "type": "string"
+    },
+    "addressCity": {
+      "type": "string"
+    },
+    "addressCountry": {
+      "type": "string"
+    },
+    "paymentMethod": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "credit_card",
+        "debit_card",
+        "paypal",
+        "apple_pay"
+      ]
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false
+    }
+  }
+}
