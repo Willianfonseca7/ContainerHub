@@ -157,10 +157,10 @@ export default function ProfileEdit() {
     <div className="py-10 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#F59E0B]">
             {t('profile.editSubtitle')}
           </p>
-          <h1 className="text-2xl font-semibold text-[#0B132B]">{t('profile.editTitle')}</h1>
+          <h1 className="text-2xl font-semibold text-[#111827] dark:text-slate-100">{t('profile.editTitle')}</h1>
         </div>
         <Button as={Link} to="/profile" variant="ghost" size="sm">
           {t('profile.menuProfile')}
@@ -169,17 +169,17 @@ export default function ProfileEdit() {
 
       <Card className="p-6 space-y-5">
         {!localProfile ? (
-          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+          <div className="rounded-xl bg-[#F59E0B]/15 px-4 py-3 text-sm text-[#111827] shadow-sm dark:text-slate-100">
             {t('profile.complete')}
           </div>
         ) : null}
         <div className="flex items-center gap-4">
           <Avatar src={avatarUrl} name={form.fullName || user?.username} size={64} />
           <div className="space-y-1">
-            <p className="text-sm text-[#52627A]">{t('profile.avatar')}</p>
-            <label className="text-sm text-[#52627A] cursor-pointer">
+            <p className="text-sm text-[#6B7280] dark:text-slate-400">{t('profile.avatar')}</p>
+            <label className="text-sm text-[#6B7280] dark:text-slate-400 cursor-pointer">
               <input type="file" accept="image/*" onChange={handleFile} className="hidden" />
-              <span className="inline-flex items-center gap-2 rounded-xl border border-[#DDE7E4] px-3 py-1.5 text-sm hover:border-[#0F766E]">
+              <span className="inline-flex items-center gap-2 rounded-xl bg-white dark:bg-[#0B1220] px-3 py-1.5 text-sm shadow-sm hover:shadow-md">
                 {saving ? t('profile.uploading') : t('profile.upload')}
               </span>
             </label>
@@ -196,7 +196,7 @@ export default function ProfileEdit() {
             label={t('profile.email')}
             value={form.email}
             readOnly
-            className="bg-[#F5FBFA] text-[#60728E]"
+            className="bg-[#FAFAFA] text-[#6B7280] dark:bg-[#0B1220] dark:text-slate-400"
           />
           <Input
             label={t('profile.phone')}
@@ -246,7 +246,7 @@ export default function ProfileEdit() {
         </div>
 
         {error ? <p className="text-sm text-rose-600">{error}</p> : null}
-        {success ? <p className="text-sm text-emerald-600">{success}</p> : null}
+        {success ? <p className="text-sm text-[#F59E0B]">{success}</p> : null}
 
         <div className="flex items-center justify-end gap-3">
           <Button variant="ghost" as={Link} to="/profile">

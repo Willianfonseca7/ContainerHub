@@ -27,27 +27,27 @@ export default function ContainerCard({ container, onBook }) {
     <Card className="p-4 flex flex-col gap-4">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-xs uppercase tracking-wide text-[#60728E]">#{code || container.id}</p>
-          <h3 className="text-lg font-semibold text-[#0B132B]">
+          <p className="text-xs uppercase tracking-wide text-[#6B7280] dark:text-slate-400">#{code || container.id}</p>
+          <h3 className="text-lg font-semibold text-[#111827] dark:text-slate-100">
             Container {meta.label || size}
           </h3>
-          <p className="text-sm text-[#60728E]">{city}</p>
+          <p className="text-sm text-[#6B7280] dark:text-slate-400">{city}</p>
         </div>
         <div className="flex flex-col items-end gap-2">
           <PlanBadge plan={plan} />
           {hasCamera ? (
-            <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-[#0B132B]">
-              <span className="h-2 w-2 rounded-full bg-[#0F766E] animate-pulse" />{' '}
+            <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-[#111827] dark:text-slate-100">
+              <span className="h-2 w-2 rounded-full bg-[#F59E0B] animate-pulse" />{' '}
               {t('cards.camera')}
             </span>
           ) : (
-            <span className="text-[11px] text-[#60728E]">{t('cards.pinOnly')}</span>
+            <span className="text-[11px] text-[#6B7280] dark:text-slate-400">{t('cards.pinOnly')}</span>
           )}
         </div>
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="text-2xl font-bold text-[#0B132B]">
+        <div className="text-2xl font-bold text-[#111827] dark:text-slate-100">
           {displayPrice}
         </div>
         <Button
@@ -57,7 +57,7 @@ export default function ContainerCard({ container, onBook }) {
           onClick={handleBook}
           className={
             isAvailable
-              ? 'rounded-xl bg-gradient-to-r from-[#0B132B] to-[#0F766E] text-white shadow-lg shadow-[#0B132B]/10 hover:scale-[1.01] hover:shadow-[#0B132B]/20 transition-transform'
+              ? 'rounded-xl bg-gradient-to-r from-[#111827] to-[#1F2937] text-white shadow-lg shadow-[#111827]/10 hover:scale-[1.01] hover:shadow-[#111827]/20 transition-transform'
               : ''
           }
         >

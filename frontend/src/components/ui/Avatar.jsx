@@ -12,7 +12,7 @@ export default function Avatar({ src, name, size = 36, className = '' }) {
   const dimension = `${size}px`;
   return (
     <div
-      className={`flex items-center justify-center rounded-full bg-[#E6F4F1] text-[#0B132B] border border-[#CFE7E2] overflow-hidden ${className}`}
+      className={`flex items-center justify-center rounded-full bg-[#FAFAFA] text-[#111827] overflow-hidden dark:bg-[#1F2937] dark:text-slate-100 ${className}`}
       style={{ width: dimension, height: dimension }}
       aria-label={name || 'User avatar'}
     >

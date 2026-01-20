@@ -28,14 +28,14 @@ export default function ReservationPreviewModal({ open, container, onClose, onCo
         if (e.target === e.currentTarget) onClose?.();
       }}
     >
-      <Card className="w-full max-w-lg p-6 space-y-4 bg-white">
+      <Card className="w-full max-w-lg p-6 space-y-4 bg-white dark:bg-[#111827]">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">Reservierung prüfen</p>
-            <h2 className="text-xl font-semibold text-[#0B132B]">
+            <p className="text-xs uppercase tracking-[0.18em] text-[#F59E0B]">Reservierung prüfen</p>
+            <h2 className="text-xl font-semibold text-[#111827] dark:text-slate-100">
               {container?.code ? `#${container.code}` : 'Container'}
             </h2>
-            <p className="text-sm text-[#52627A]">
+            <p className="text-sm text-[#6B7280] dark:text-slate-400">
               {container?.city} • Size {container?.size}
             </p>
           </div>
@@ -44,28 +44,28 @@ export default function ReservationPreviewModal({ open, container, onClose, onCo
           </div>
         </div>
 
-        <div className="space-y-1 text-sm text-[#1B2A47]">
+        <div className="space-y-1 text-sm text-[#111827] dark:text-slate-100">
           <p>
             <span className="font-semibold">Preis:</span> {priceText}
           </p>
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-[#0B132B]">Dauer wählen</p>
+            <p className="text-sm font-semibold text-[#111827] dark:text-slate-100">Dauer wählen</p>
             <div className="flex flex-col gap-1">
               {[1, 6, 12].map((m) => (
-                <label key={m} className="flex items-center gap-2 text-sm text-[#1B2A47]">
+                <label key={m} className="flex items-center gap-2 text-sm text-[#111827] dark:text-slate-100">
                   <input
                     type="radio"
                     name="duration"
                     value={m}
                     checked={duration === m}
                     onChange={() => setDuration(m)}
-                    className="text-[#0B132B] focus:ring-[#0F766E]"
+                    className="text-[#111827] focus:ring-[#F59E0B]"
                   />
                   {m === 1 ? 'Monatlich (1 Monat)' : `${m} Monate`}
                 </label>
               ))}
             </div>
-            <p className="text-sm text-[#1B2A47]">
+            <p className="text-sm text-[#111827] dark:text-slate-100">
               <span className="font-semibold">Gesamt:</span>{' '}
               {totalValue !== null ? `€ ${totalValue.toFixed(2)}` : '—'}
             </p>

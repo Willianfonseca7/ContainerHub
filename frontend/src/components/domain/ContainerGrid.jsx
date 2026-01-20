@@ -18,7 +18,7 @@ export default function ContainerGrid({ containers, loading, onBook }) {
 
   if (!containers.length) {
     return (
-      <div className="rounded-2xl border border-dashed border-[#CFE7E2] bg-white p-8 text-center text-[#60728E]">
+      <div className="rounded-2xl bg-white p-8 text-center text-[#6B7280] shadow-sm dark:bg-[#111827] dark:text-slate-400">
         {t('containers.emptyAll')}
       </div>
     );

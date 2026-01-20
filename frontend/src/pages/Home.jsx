@@ -8,7 +8,7 @@ import HomeCTA from '../components/domain/HomeCTA';
 
 export default function Home() {
   return (
-    <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-gradient-to-b from-[#F7FBFA] via-white to-[#E6F4F1]">
+    <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-gradient-to-b from-[#FAFAFA] via-white to-[#FAFAFA] dark:bg-gradient-to-b dark:from-[#020617] dark:via-[#020617] dark:to-[#020617]">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-14 space-y-16">
         <HomeHero />
         <MobileManagement />
