@@ -176,13 +176,13 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <Card className="w-full max-w-md space-y-5 border border-[#E2ECE9] rounded-2xl bg-white p-6 shadow-sm">
+      <Card className="w-full max-w-md space-y-5 bg-gradient-to-br from-white to-slate-50 p-6 dark:bg-gradient-to-br dark:from-[#111827] dark:to-[#1F2937]">
         <div className="space-y-1">
-          <h1 className="text-2xl font-semibold text-[#0B132B]">{t('register.title')}</h1>
-          <p className="text-sm text-[#52627A]">{t('register.subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-[#111827] dark:text-slate-100">{t('register.title')}</h1>
+          <p className="text-sm text-[#6B7280] dark:text-slate-400">{t('register.subtitle')}</p>
         </div>
         {success ? (
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <div className="rounded-xl bg-[#F59E0B]/15 px-4 py-3 text-sm text-[#111827] shadow-sm dark:text-slate-100">
             {success}
           </div>
         ) : null}
@@ -194,7 +194,7 @@ export default function Register() {
             onChange={(e) => handleChange('name', e.target.value)}
             onBlur={() => handleBlur('name')}
             error={showError('name')}
-            className={showError('name') ? 'border-red-500' : ''}
+            className={showError('name') ? 'ring-2 ring-red-500/40' : ''}
           />
           <Input
             label={t('register.email')}
@@ -203,9 +203,9 @@ export default function Register() {
             onChange={(e) => handleChange('email', e.target.value)}
             onBlur={() => handleBlur('email')}
             error={showError('email')}
-            className={showError('email') ? 'border-red-500' : ''}
+            className={showError('email') ? 'ring-2 ring-red-500/40' : ''}
           />
-          <label className="flex flex-col gap-1 text-sm font-medium text-[#1B2A47]">
+          <label className="flex flex-col gap-1 text-sm font-medium text-[#111827] dark:text-slate-100">
             {t('register.password')}
             <div className="relative">
               <input
@@ -213,13 +213,13 @@ export default function Register() {
                 value={form.password}
                 onChange={(e) => handleChange('password', e.target.value)}
                 onBlur={() => handleBlur('password')}
-                className={`w-full rounded-xl border bg-white px-3 py-2 pr-10 text-sm text-[#0B132B] placeholder:text-slate-400 focus:border-[#0F766E] focus:outline-none focus:ring-2 focus:ring-[#0F766E]/15 ${
-                  showError('password') ? 'border-red-500' : 'border-[#DDE7E4]'
+                className={`w-full rounded-xl bg-white px-3 py-2 pr-10 text-sm text-[#111827] placeholder:text-[#6B7280] shadow-sm ring-1 ring-[#6B7280]/20 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/40 focus:ring-offset-2 focus:ring-offset-[#FAFAFA] ${
+                  showError('password') ? 'ring-2 ring-red-500/40' : ''
                 }`}
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#60728E] hover:text-[#0B132B]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#111827] dark:text-slate-400 dark:hover:text-slate-100"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => setShowPassword((prev) => !prev)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
@@ -249,7 +249,7 @@ export default function Register() {
                 : t('register.passwordWeak')}
             </p>
           ) : null}
-          <label className="flex flex-col gap-1 text-sm font-medium text-[#1B2A47]">
+          <label className="flex flex-col gap-1 text-sm font-medium text-[#111827] dark:text-slate-100">
             {t('register.confirmPassword')}
             <div className="relative">
               <input
@@ -257,13 +257,13 @@ export default function Register() {
                 value={form.confirmPassword}
                 onChange={(e) => handleChange('confirmPassword', e.target.value)}
                 onBlur={() => handleBlur('confirmPassword')}
-                className={`w-full rounded-xl border bg-white px-3 py-2 pr-10 text-sm text-[#0B132B] placeholder:text-slate-400 focus:border-[#0F766E] focus:outline-none focus:ring-2 focus:ring-[#0F766E]/15 ${
-                  showError('confirmPassword') ? 'border-red-500' : 'border-[#DDE7E4]'
+                className={`w-full rounded-xl bg-white px-3 py-2 pr-10 text-sm text-[#111827] placeholder:text-[#6B7280] shadow-sm ring-1 ring-[#6B7280]/20 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/40 focus:ring-offset-2 focus:ring-offset-[#FAFAFA] ${
+                  showError('confirmPassword') ? 'ring-2 ring-red-500/40' : ''
                 }`}
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#60728E] hover:text-[#0B132B]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#111827] dark:text-slate-400 dark:hover:text-slate-100"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
                 aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
@@ -276,13 +276,13 @@ export default function Register() {
             ) : null}
           </label>
 
-          <label className="flex items-start gap-2 text-sm text-[#52627A]">
+          <label className="flex items-start gap-2 text-sm text-[#6B7280] dark:text-slate-400">
             <input
               type="checkbox"
               checked={form.acceptTerms}
               onChange={(e) => handleChange('acceptTerms', e.target.checked)}
               onBlur={() => handleBlur('acceptTerms')}
-              className="mt-1"
+              className="mt-1 accent-[#F59E0B]"
             />
             <span>{t('register.terms')}</span>
           </label>
@@ -297,9 +297,9 @@ export default function Register() {
           </Button>
         </form>
 
-        <div className="text-sm text-[#52627A]">
+        <div className="text-sm text-[#6B7280] dark:text-slate-400">
           {t('register.haveAccount')}{' '}
-          <Link to="/login" className="text-[#0F766E] font-semibold hover:underline">
+          <Link to="/login" className="text-[#F59E0B] font-semibold hover:underline">
             {t('register.login')}
           </Link>
         </div>

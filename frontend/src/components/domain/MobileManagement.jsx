@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Smartphone, KeyRound, CreditCard, MapPin } from 'lucide-react';
+import ImageSection from '../ui/ImageSection';
+import singleContainerImage from '../../img/container1.png';
 
 const tiles = [
   { icon: Smartphone, label: 'Verträge verwalten' },
@@ -19,11 +21,11 @@ export default function MobileManagement() {
       className="grid gap-8 lg:grid-cols-2 lg:items-center"
     >
       <div className="order-2 lg:order-1">
-        <div className="rounded-3xl bg-gradient-to-br from-[#0B132B] via-[#111F3C] to-[#0F766E] p-8 text-white shadow-2xl">
+        <div className="rounded-3xl bg-gradient-to-br from-[#111827] via-[#1F2937] to-[#111827] p-8 text-white shadow-2xl dark:bg-gradient-to-br dark:from-[#020617] dark:via-[#111827] dark:to-[#020617]">
           <div className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.22em] text-white/60">App View</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-[#FAFAFA]">App View</p>
             <h3 className="text-2xl font-semibold">Alles per Smartphone</h3>
-            <p className="text-sm text-white/80">
+            <p className="text-sm text-[#FAFAFA]">
               Verwalte deine Einheiten, Zugänge und Zahlungen direkt im Browser – schnell und
               sicher.
             </p>
@@ -37,14 +39,30 @@ export default function MobileManagement() {
             <div className="rounded-2xl bg-white/10 p-4 text-sm text-white/90">Support</div>
           </div>
         </div>
+        <ImageSection
+          imageSrc={singleContainerImage}
+          alt="Einzelner Container im Hof"
+          className="mt-6 h-44 sm:h-52"
+          overlayClassName="bg-gradient-to-r from-white/80 via-white/55 to-white/25 dark:from-black/70 dark:via-black/55 dark:to-black/30"
+          imageClassName="brightness-95 dark:brightness-85"
+        >
+          <div className="flex h-full flex-col justify-end p-4">
+            <p className="text-sm font-semibold text-[#111827] dark:text-slate-100">
+              Sofort verfügbar
+            </p>
+            <p className="text-xs text-[#6B7280] dark:text-slate-400">
+              Schnell buchen, direkt starten.
+            </p>
+          </div>
+        </ImageSection>
       </div>
 
       <div className="order-1 lg:order-2 space-y-4">
-        <p className="text-xs uppercase tracking-[0.22em] text-[#0F766E]">Alles per Smartphone</p>
-        <h2 className="text-3xl font-semibold text-[#0B132B]">
+        <p className="text-xs uppercase tracking-[0.22em] text-[#F59E0B]">Alles per Smartphone</p>
+        <h2 className="text-3xl font-semibold text-[#111827] dark:text-slate-100">
           Kontrolle ohne App-Stress. Alles im Browser.
         </h2>
-        <p className="text-[#52627A]">
+        <p className="text-[#6B7280] dark:text-slate-400">
           Erhalte volle Transparenz und verwalte jeden Schritt in Sekunden – egal ob unterwegs oder
           im Büro.
         </p>
@@ -52,10 +70,10 @@ export default function MobileManagement() {
           {tiles.map(({ icon: Icon, label }) => (
             <div
               key={label}
-              className="rounded-2xl bg-gradient-to-br from-[#E6F4F1] to-[#DDF0EC] p-4 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+              className="group rounded-2xl bg-gradient-to-br from-white to-slate-50 p-4 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:bg-gradient-to-br dark:from-[#111827] dark:to-[#1F2937] dark:shadow-xl"
             >
-              <div className="flex items-center gap-3 text-[#1B2A47]">
-                <Icon className="h-5 w-5 text-[#0F766E] transition-opacity duration-200 hover:opacity-80" />
+              <div className="flex items-center gap-3 text-[#111827] dark:text-slate-100">
+                <Icon className="h-5 w-5 text-[#6B7280] transition-colors duration-200 group-hover:text-[#F59E0B]" />
                 <span className="text-sm font-medium">{label}</span>
               </div>
             </div>

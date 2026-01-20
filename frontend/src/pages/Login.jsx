@@ -50,10 +50,10 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md space-y-5 border border-[#E2ECE9] rounded-2xl bg-white p-6 shadow-sm">
+      <div className="w-full max-w-md space-y-5 rounded-2xl bg-gradient-to-br from-white to-slate-50 p-6 shadow-md dark:bg-gradient-to-br dark:from-[#111827] dark:to-[#1F2937] dark:shadow-xl">
         <div className="space-y-1">
-          <h1 className="text-2xl font-semibold text-[#0B132B]">{t('auth.title')}</h1>
-          <p className="text-sm text-[#52627A]">{t('auth.subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-[#111827] dark:text-slate-100">{t('auth.title')}</h1>
+          <p className="text-sm text-[#6B7280] dark:text-slate-400">{t('auth.subtitle')}</p>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -77,17 +77,17 @@ export default function Login() {
           </Button>
         </form>
 
-        <div className="text-sm text-[#52627A]">
+        <div className="text-sm text-[#6B7280] dark:text-slate-400">
           {t('auth.noAccount')}{' '}
-          <Link to="/register" className="text-[#0F766E] font-semibold hover:underline">
+          <Link to="/register" className="text-[#F59E0B] font-semibold hover:underline">
             {t('auth.register')}
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#7B8AA1]">
-          <div className="h-px flex-1 bg-[#E2ECE9]" />
+        <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#6B7280] dark:text-slate-400">
+          <div className="h-px flex-1 bg-[#6B7280]/20 dark:bg-slate-700" />
           <span>{t('auth.or')}</span>
-          <div className="h-px flex-1 bg-[#E2ECE9]" />
+          <div className="h-px flex-1 bg-[#6B7280]/20 dark:bg-slate-700" />
         </div>
 
         <div className="space-y-3">

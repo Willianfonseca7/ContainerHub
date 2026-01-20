@@ -11,21 +11,33 @@ export default function LanguageSwitcher() {
       <button
         type="button"
         onClick={() => setLang('de')}
-        className={`px-2 py-1 rounded-full border ${lang === 'de' ? 'border-[#0B132B] bg-[#0B132B] text-white' : 'border-[#DDE7E4] text-[#52627A] hover:border-[#0F766E]'}`}
+        className={`px-2 py-1 rounded-full shadow-sm transition-colors ${
+          lang === 'de'
+            ? 'bg-[#111827] text-white dark:bg-[#F59E0B] dark:text-[#111827]'
+            : 'bg-white text-[#6B7280] hover:text-[#111827] dark:bg-[#111827] dark:text-slate-400 dark:hover:text-slate-100'
+        }`}
       >
         DE
       </button>
       <button
         type="button"
         onClick={() => setLang('en')}
-        className={`px-2 py-1 rounded-full border ${lang === 'en' ? 'border-[#0B132B] bg-[#0B132B] text-white' : 'border-[#DDE7E4] text-[#52627A] hover:border-[#0F766E]'}`}
+        className={`px-2 py-1 rounded-full shadow-sm transition-colors ${
+          lang === 'en'
+            ? 'bg-[#111827] text-white dark:bg-[#F59E0B] dark:text-[#111827]'
+            : 'bg-white text-[#6B7280] hover:text-[#111827] dark:bg-[#111827] dark:text-slate-400 dark:hover:text-slate-100'
+        }`}
       >
         EN
       </button>
       <button
         type="button"
         onClick={() => setLang('pt')}
-        className={`px-2 py-1 rounded-full border ${lang === 'pt' ? 'border-[#0B132B] bg-[#0B132B] text-white' : 'border-[#DDE7E4] text-[#52627A] hover:border-[#0F766E]'}`}
+        className={`px-2 py-1 rounded-full shadow-sm transition-colors ${
+          lang === 'pt'
+            ? 'bg-[#111827] text-white dark:bg-[#F59E0B] dark:text-[#111827]'
+            : 'bg-white text-[#6B7280] hover:text-[#111827] dark:bg-[#111827] dark:text-slate-400 dark:hover:text-slate-100'
+        }`}
       >
         PT
       </button>

@@ -79,7 +79,7 @@ export default function ContactForm() {
         <Button type="submit" disabled={status.loading}>
           {status.loading ? <Spinner label={t('contact.sending')} /> : t('contact.send')}
         </Button>
-        {status.success ? <span className="text-sm text-emerald-700">{status.success}</span> : null}
+        {status.success ? <span className="text-sm text-[#F59E0B]">{status.success}</span> : null}
         {status.error ? <span className="text-sm text-rose-600">{status.error}</span> : null}
       </div>
     </form>

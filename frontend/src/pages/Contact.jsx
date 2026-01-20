@@ -8,9 +8,9 @@ export default function Contact() {
   return (
     <div className="py-10 space-y-6">
       <div className="space-y-2">
-        <p className="text-xs uppercase tracking-[0.18em] text-[#0F766E]">{t('contact.badge')}</p>
-        <h1 className="text-3xl font-bold text-[#0B132B]">{t('contact.title')}</h1>
-        <p className="text-sm text-[#52627A]">{t('contact.subtitle')}</p>
+        <p className="text-xs uppercase tracking-[0.18em] text-[#F59E0B]">{t('contact.badge')}</p>
+        <h1 className="text-3xl font-bold text-[#111827] dark:text-slate-100">{t('contact.title')}</h1>
+        <p className="text-sm text-[#6B7280] dark:text-slate-400">{t('contact.subtitle')}</p>
       </div>
 
       <Card className="p-6">
