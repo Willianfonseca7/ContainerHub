@@ -1,73 +1,105 @@
-# ContainerHub – Fullstack (Strapi + Vite/React/Tailwind)
+# ContainerHub
 
-## Estrutura
-- `backend/` – Strapi (rodar em http://localhost:1337)
-- `frontend/` – Vite + React + Tailwind (rodar em http://localhost:5173)
+ContainerHub ist eine Full-Stack Webanwendung zur Verwaltung und Reservierung von Storage-Containern.  
+Das Projekt wurde mit **React (Vite)** im Frontend und **Strapi v4** im Backend entwickelt und dient als **realistische Demo-Applikation** mit Login, Reservierungen und Benutzerprofilen.
 
-## Pré-requisitos
-- Node.js (>=18)
-- npm
+---
 
-## Backend (Terminal 1)
+## 🚀 Features
+
+- Benutzerregistrierung & Login (JWT, Strapi Users & Permissions)
+- Container-Übersicht und Detailseite
+- Reservierung von Containern (nur für eingeloggte Benutzer)
+- Pflichtfelder inkl. Zahlungsmethode (Demo, kein echtes Payment)
+- Benutzerprofil (Anzeigen & Bearbeiten)
+- Kontaktformular
+- Modernes, responsives UI mit Tailwind CSS
+
+---
+
+## 🧱 Technologie-Stack
+
+**Frontend**
+- React + Vite
+- Tailwind CSS
+- Fetch API (zentralisiert)
+
+**Backend**
+- Strapi v4
+- REST API
+- JWT-Authentifizierung
+
+---
+
+## 📦 Projektstruktur (vereinfacht)
+
+ContainerHub/
+├── backend/ # Strapi CMS
+└── frontend/ # React + Vite App
+
+
+---
+
+## ⚙️ Setup (lokal)
+
+### Backend (Strapi)
+
 ```bash
 cd backend
-npm install          # já feito se node_modules existir
-npm run build        # se ainda não buildou o admin
-HOST=0.0.0.0 PORT=1337 npm run start
-```
-> Painel: http://localhost:1337/admin  
-> API:    http://localhost:1337/api/items
+npm install
+npm run develop
 
-### Collection Type
-Criada “items” com campos:
-- `title` (string, required)
-- `description` (text)
-- `status` (enum: draft, active)
+http://localhost:1337/admin
 
-### Permissões públicas
-No admin: Settings → Users & Permissions → Roles → Public → habilitar `find`, `findOne`, `create` em “items”. Salve.
-
-### CORS
-Default do Strapi já aceita localhost. Se precisar, ajuste `config/middlewares.js`.
-
-## Frontend (Terminal 2)
-```bash
+Frontend
 cd frontend
 npm install
-# .env já contém VITE_API_URL=http://localhost:1337
-npm run dev -- --host 0.0.0.0 --port 5173
-```
-Abra: http://localhost:5173/kontainers (raiz do app).
+npm run dev
 
-## Endpoints usados
-- GET  `${VITE_API_URL}/api/items`
-- POST `${VITE_API_URL}/api/items`
-  Payload:
-  ```json
-  {
-    "data": {
-      "title": "Meu item",
-      "description": "Opcional",
-      "status": "active"
-    }
-  }
-  ```
+Frontend App:
 
-## Debug checklist
-- Backend up? `http://localhost:1337/api/items` deve responder 200.
-- Permissões Public liberadas? Se 403, habilite find/findOne/create.
-- CORS/baseURL? Confirme `.env` do front: `VITE_API_URL=http://localhost:1337`.
-- Portas: backend 1337, frontend 5173. Mate processos antigos com `lsof -i :1337` / `lsof -i :5173`.
+http://localhost:5173
 
-## Frontend – Arquivos principais
-- `src/main.jsx` – bootstrap React
-- `src/App.jsx` – layout + página
-- `src/index.css` – Tailwind
-- `src/services/api.js` – `getItems`, `createItem` com try/catch
-- `src/components/Layout.jsx`
-- `src/components/Button.jsx`
-- `src/components/Input.jsx`
-- `src/components/ItemCard.jsx`
-- `src/components/ItemList.jsx` (GET + loading/erro/empty)
-- `src/components/CreateItemForm.jsx` (POST)
-- `src/pages/Home.jsx`
+
+
+
+🔐 Authentifizierung
+
+Benutzer melden sich mit E-Mail & Passwort an
+
+JWT wird im localStorage gespeichert (containerhub_token)
+
+
+
+**Reservierungen sind nur für eingeloggte Benutzer möglich**
+
+Reservierungen (Demo-Flow)
+
+Benutzer meldet sich an oder registriert sich
+
+Container auswählen
+
+Reservierungsformular ausfüllen:
+
+Name
+
+E-Mail
+
+Telefon
+
+Start- & Enddatum
+
+Zahlungsmethode (Demo)
+
+AGB akzeptieren
+
+Reservierung wird im Backend gespeichert und dem Benutzer zugeordnet
+
+
+Hinweise
+
+Kein echtes Zahlungssystem integriert (Demo)
+
+Benutzer wird im Backend automatisch über JWT (ctx.state.user) gesetzt
+
+Frontend sendet keinen user im Payload
