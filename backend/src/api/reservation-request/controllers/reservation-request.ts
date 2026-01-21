@@ -18,11 +18,14 @@ export default factories.createCoreController(
       const data = body.data || {};
       const { user: _ignored, ...rest } = data;
       const model = strapi.getModel('api::reservation-request.reservation-request' as any);
+      const payload = model?.attributes?.user ? { ...rest, user: user.id } : rest;
 
-      body.data = model?.attributes?.user ? { ...rest, user: user.id } : rest;
-      ctx.request.body = body;
-
-      return super.create(ctx);
+      const entry = await strapi.entityService.create(
+        'api::reservation-request.reservation-request' as any,
+        { data: payload },
+      );
+      const sanitized = await this.sanitizeOutput(entry, ctx);
+      return this.transformResponse(sanitized);
     },
   }),
 );
