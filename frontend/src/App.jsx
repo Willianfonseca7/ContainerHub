@@ -19,14 +19,12 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
+    const forceProfileRedirect = sessionStorage.getItem('force_profile_redirect');
+    if (forceProfileRedirect !== '1') return;
     if (!isAuthenticated || profileLoading) return;
     const isProfileEdit = location.pathname.startsWith('/profile/edit');
     const isAuthRoute = location.pathname.startsWith('/login') || location.pathname.startsWith('/auth/');
-    const skipProfileRedirect = sessionStorage.getItem('skip_profile_redirect');
-    if (skipProfileRedirect) {
-      sessionStorage.removeItem('skip_profile_redirect');
-      return;
-    }
+    sessionStorage.removeItem('force_profile_redirect');
     if (!profile && !isProfileEdit && !isAuthRoute) {
       navigate('/profile/edit', { replace: true });
     }

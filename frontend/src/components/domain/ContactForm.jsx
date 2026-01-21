@@ -5,6 +5,7 @@ import Button from '../ui/Button';
 import Spinner from '../ui/Spinner';
 import { sendContactMessage } from '../../services/api';
 import { useI18n } from '../../context/I18nContext';
+import { validateEmailStrict, validateRequired } from '../../utils/validation';
 
 const initialState = { name: '', email: '', message: '' };
 
@@ -16,9 +17,15 @@ export default function ContactForm() {
 
   const validate = () => {
     const newErrors = {};
-    if (!form.name.trim()) newErrors.name = t('contact.validations.name');
-    if (!form.email.trim()) newErrors.email = t('contact.validations.email');
-    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) newErrors.email = t('contact.validations.emailInvalid');
+    const nameError = validateRequired(form.name, t('contact.validations.name'));
+    if (nameError) newErrors.name = nameError;
+
+    const emailError = validateEmailStrict(form.email, t('contact.validations.emailInvalid'));
+    if (emailError) {
+      newErrors.email = form.email.trim()
+        ? t('contact.validations.emailInvalid')
+        : t('contact.validations.email');
+    }
     if (!form.message.trim() || form.message.trim().length < 10)
       newErrors.message = t('contact.validations.message');
     setErrors(newErrors);

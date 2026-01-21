@@ -157,10 +157,23 @@ export default function Register() {
       });
       setSession({ jwt: data.jwt, user: data.user });
       setErrors({});
+      const intent = localStorage.getItem('containerhub_intent');
+      if (intent) {
+        try {
+          const parsed = JSON.parse(intent);
+          if (parsed?.type === 'reserve' && parsed?.returnTo) {
+            localStorage.removeItem('containerhub_intent');
+            navigate(parsed.returnTo, { replace: true });
+            return;
+          }
+        } catch {
+          localStorage.removeItem('containerhub_intent');
+        }
+      }
       setSuccess(t('register.success'));
       sessionStorage.setItem('skip_profile_redirect', '1');
       setTimeout(() => {
-        navigate('/', { replace: true });
+        navigate(redirectTo, { replace: true });
       }, 1500);
     } catch (err) {
       const message = String(err?.message || '');

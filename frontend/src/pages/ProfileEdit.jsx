@@ -9,13 +9,7 @@ import Select from '../components/ui/Select';
 import Spinner from '../components/ui/Spinner';
 import Avatar from '../components/ui/Avatar';
 import { getMyProfile, upsertMyProfile, uploadAvatar, resolveMediaUrl } from '../services/profile';
-
-const paymentOptions = [
-  { value: 'credit_card', label: 'Kreditkarte' },
-  { value: 'debit_card', label: 'Debitkarte' },
-  { value: 'paypal', label: 'PayPal' },
-  { value: 'apple_pay', label: 'Apple Pay' },
-];
+import { paymentOptions } from '../constants/paymentMethods';
 
 export default function ProfileEdit() {
   const { t } = useI18n();
@@ -211,7 +205,7 @@ export default function ProfileEdit() {
             <option value="">{t('profile.paymentPlaceholder')}</option>
             {paymentOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
-                {opt.label}
+                {t(`paymentMethods.${opt.value}`)}
               </option>
             ))}
           </Select>

@@ -9,6 +9,9 @@ import Badge from '../components/ui/Badge';
 import { useI18n } from '../context/I18nContext';
 import { useAuth } from '../context/AuthContext';
 import ReservationPreviewModal from '../components/domain/ReservationPreviewModal';
+import containerS from '../img/containerS.png';
+import containerM from '../img/containerM.png';
+import containerL from '../img/containerL.png';
 
 const sizeMeta = {
   S: {
@@ -31,26 +34,11 @@ const sizeMeta = {
   },
 };
 
-const sizeIllustrations = ['S', 'M', 'L'].reduce((acc, size) => {
-  const svg = `<svg width="320" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#111827"/>
-      <stop offset="100%" stop-color="#1F2937"/>
-    </linearGradient>
-  </defs>
-  <rect width="320" height="180" rx="18" fill="#FAFAFA"/>
-  <rect x="18" y="36" width="284" height="108" rx="12" fill="url(#g)"/>
-  <rect x="36" y="54" width="64" height="72" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
-  <rect x="112" y="54" width="64" height="72" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
-  <rect x="188" y="54" width="64" height="72" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
-  <rect x="264" y="54" width="16" height="72" fill="rgba(255,255,255,0.15)"/>
-  <text x="160" y="105" font-family="Space Grotesk, sans-serif" font-size="34" font-weight="700" fill="#f8fafc" text-anchor="middle">Size ${size}</text>
-  <text x="160" y="132" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="600" fill="#94A3B8" text-anchor="middle">PIN-Zugang • Optionale 24/7-Kamera</text>
-</svg>`;
-  acc[size] = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-  return acc;
-}, {});
+const sizeIllustrations = {
+  S: containerS,
+  M: containerM,
+  L: containerL,
+};
 
 function getPriceValue(item) {
   const raw = item?.price ?? item?.priceMonthly ?? item?.price_monthly;
@@ -255,9 +243,6 @@ export default function Containers() {
         <p className="text-xs uppercase tracking-[0.18em] text-[#F59E0B]">{t('containers.badge')}</p>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-3xl font-bold text-[#111827] dark:text-slate-100">{t('containers.title')}</h1>
-          <Button variant="ghost" size="sm" onClick={reload}>
-            {t('containers.reload')}
-          </Button>
         </div>
         <p className="text-sm text-[#6B7280] dark:text-slate-400">{t('containers.description')}</p>
       </header>
@@ -348,8 +333,13 @@ export default function Containers() {
           sessionStorage.setItem('reservationDraft', JSON.stringify(draft));
           const targetPath = `/containers/${selectedContainer.id}`;
           if (!isAuthenticated) {
-            // TODO: implementar /login com redirect
-            navigate(`/login?redirect=${encodeURIComponent('/containers')}`);
+            const intent = {
+              type: 'reserve',
+              containerId: selectedContainer.id,
+              returnTo: `${targetPath}?reserve=1`,
+            };
+            localStorage.setItem('containerhub_intent', JSON.stringify(intent));
+            navigate(`/login?redirect=${encodeURIComponent(targetPath)}`);
             return;
           }
           navigate(targetPath, { state: { container: selectedContainer } });
