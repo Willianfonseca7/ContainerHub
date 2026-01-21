@@ -1,22 +1,19 @@
-export default [
-  'strapi::logger',
+module.exports = [
   'strapi::errors',
-  'strapi::security',
   {
     name: 'strapi::cors',
     config: {
       origin: [
-        'http://localhost:5173',
-        'http://127.0.0.1:5173',
-        'http://localhost:5175',
-        'http://127.0.0.1:5175',
+        'https://kontainer-flame.vercel.app',
+        'https://kontainer-flame.vercel.app/containers',
+        'https://kontainer-flame.vercel.app/*'
       ],
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       headers: '*',
-      credentials: true,
     },
   },
+  'strapi::security',
   'strapi::poweredBy',
+  'strapi::logger',
   'strapi::query',
   'strapi::body',
   'strapi::session',
