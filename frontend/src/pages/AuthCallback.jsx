@@ -13,9 +13,12 @@ export default function AuthCallback() {
   const [searchParams] = useSearchParams();
   const [error, setError] = useState('');
 
-  const redirectTo = searchParams.get('redirect') || '/containers';
-  const accessToken = searchParams.get('access_token');
-  const providerError = searchParams.get('error');
+  const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+  const redirectTo =
+    searchParams.get('redirect') || hashParams.get('redirect') || '/containers';
+  const accessToken =
+    searchParams.get('access_token') || hashParams.get('access_token');
+  const providerError = searchParams.get('error') || hashParams.get('error');
 
   useEffect(() => {
     if (!provider || !PROVIDERS.has(provider)) {
@@ -33,6 +36,19 @@ export default function AuthCallback() {
 
     completeSocialLogin(provider, accessToken)
       .then(() => {
+        const intent = localStorage.getItem('containerhub_intent');
+        if (intent) {
+          try {
+            const parsed = JSON.parse(intent);
+            if (parsed?.type === 'reserve' && parsed?.returnTo) {
+              localStorage.removeItem('containerhub_intent');
+              navigate(parsed.returnTo, { replace: true });
+              return;
+            }
+          } catch {
+            localStorage.removeItem('containerhub_intent');
+          }
+        }
         navigate(redirectTo, { replace: true });
       })
       .catch((err) => {

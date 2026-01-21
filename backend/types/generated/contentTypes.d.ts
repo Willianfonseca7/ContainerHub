@@ -535,6 +535,10 @@ export interface ApiContainerContainer extends Struct.CollectionTypeSchema {
         number
       >;
     publishedAt: Schema.Attribute.DateTime;
+    reservation_requests: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reservation-request.reservation-request'
+    >;
     size: Schema.Attribute.Enumeration<['S', 'M', 'L']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'M'>;
@@ -633,35 +637,41 @@ export interface ApiReservationRequestReservationRequest
     draftAndPublish: true;
   };
   attributes: {
-    city: Schema.Attribute.Enumeration<['DUS', 'KOL']> &
-      Schema.Attribute.Required;
+    container: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::container.container'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    customer_name: Schema.Attribute.Text & Schema.Attribute.Required;
     email: Schema.Attribute.Email & Schema.Attribute.Required;
-    end_date: Schema.Attribute.Date;
+    endDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    fullName: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::reservation-request.reservation-request'
     > &
       Schema.Attribute.Private;
-    notes: Schema.Attribute.Text;
-    phone: Schema.Attribute.Text;
-    publishedAt: Schema.Attribute.DateTime;
-    size: Schema.Attribute.Enumeration<['S', 'M', 'L']> &
-      Schema.Attribute.Required;
-    start_date: Schema.Attribute.Date & Schema.Attribute.Required;
-    status: Schema.Attribute.Enumeration<
-      ['new', 'contacted', 'confirmed', 'rejected']
+    message: Schema.Attribute.Text;
+    paymentMethod: Schema.Attribute.Enumeration<
+      ['credit_card', 'debit_card', 'paypal', 'apple_pay']
     > &
+      Schema.Attribute.Required;
+    phone: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    status: Schema.Attribute.Enumeration<['pending', 'approved', 'rejected']> &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'new'>;
+      Schema.Attribute.DefaultTo<'pending'>;
+    termsAccepted: Schema.Attribute.Boolean & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    wants_camera: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1120,7 +1130,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1147,6 +1156,10 @@ export interface PluginUsersPermissionsUser
       }>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    reservationRequests: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reservation-request.reservation-request'
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',

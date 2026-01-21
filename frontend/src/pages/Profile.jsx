@@ -9,13 +9,6 @@ import Spinner from '../components/ui/Spinner';
 import Avatar from '../components/ui/Avatar';
 import { resolveMediaUrl } from '../services/profile';
 
-const paymentLabels = {
-  credit_card: 'Kreditkarte',
-  debit_card: 'Debitkarte',
-  paypal: 'PayPal',
-  apple_pay: 'Apple Pay',
-};
-
 export default function Profile() {
   const { t } = useI18n();
   const { isAuthenticated, profile, profileLoading, user } = useAuth();
@@ -91,7 +84,7 @@ export default function Profile() {
             <div>
               <p className="text-xs uppercase tracking-[0.16em] text-[#6B7280] dark:text-slate-400">{t('profile.payment')}</p>
               <Badge variant="info">
-                {paymentLabels[profile.paymentMethod] || profile.paymentMethod}
+                {t(`paymentMethods.${profile.paymentMethod}`) || profile.paymentMethod}
               </Badge>
             </div>
           </div>

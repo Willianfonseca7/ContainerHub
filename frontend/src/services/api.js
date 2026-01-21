@@ -1,15 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
-const CONTAINERS_ENDPOINT = `${BASE_URL}/api/containers`;
-const CONTACT_ENDPOINT = `${BASE_URL}/api/contacts`;
-const RESERVATION_REQUESTS_ENDPOINT = `${BASE_URL}/api/reservation-requests`;
-
-const getAuthToken = () =>
-  localStorage.getItem('containerhub_token') || localStorage.getItem('kontainer_token');
-
-const authHeaders = () => {
-  const token = getAuthToken();
-  return token ? { Authorization: `Bearer ${token}` } : {};
-};
+import { requestJson, withAuth } from './http';
 
 function normalizeContainer(entry) {
   if (!entry) return null;
@@ -38,51 +27,21 @@ function normalizeContainer(entry) {
 }
 
 export async function getContainers() {
-  const res = await fetch(`${CONTAINERS_ENDPOINT}?pagination[pageSize]=200`, {
-    headers: { ...authHeaders() },
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`GET /containers failed: ${res.status} - ${text}`);
-  }
-  const json = await res.json();
+  const json = await requestJson('/api/containers?pagination[pageSize]=200');
   const data = Array.isArray(json?.data) ? json.data : [];
   return data.map(normalizeContainer).filter(Boolean);
 }
 
 export async function getContainerById(id) {
-  const res = await fetch(`${CONTAINERS_ENDPOINT}/${id}`, {
-    headers: { ...authHeaders() },
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`GET /containers/${id} failed: ${res.status} - ${text}`);
-  }
-  const json = await res.json();
+  const json = await requestJson(`/api/containers/${id}`);
   const entry = json?.data;
   return normalizeContainer(entry);
 }
 
 export async function sendContactMessage(payload) {
-  const res = await fetch(CONTACT_ENDPOINT, {
+  return requestJson('/api/contacts', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    headers: withAuth({ 'Content-Type': 'application/json' }),
     body: JSON.stringify({ data: { ...payload, status: 'new' } }),
   });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`POST /contacts failed: ${res.status} - ${text}`);
-  }
-  return res.json();
-}
-
-export async function createReservationRequest(payload) {
-  const res = await fetch(RESERVATION_REQUESTS_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...authHeaders() },
-    body: JSON.stringify({ data: payload }),
-  });
-
-  if (!res.ok) throw new Error('Erro ao criar reserva');
-  return res.json();
 }

@@ -1,9 +1,11 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import translations from '../i18n/translations';
 
 // Achtung: einfache I18n-Implementierung mit Fallback auf Englisch.
 
 const I18nContext = createContext(null);
+const STORAGE_KEY = 'containerhub_lang';
+const SUPPORTED = new Set(['de', 'en', 'pt']);
 
 function getNested(obj, path) {
   return path.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
@@ -18,7 +20,16 @@ function applyParams(value, params = {}) {
 }
 
 export function I18nProvider({ children, defaultLang = 'de' }) {
-  const [lang, setLang] = useState(defaultLang);
+  const [lang, setLang] = useState(() => {
+    if (typeof window === 'undefined') return defaultLang;
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored && SUPPORTED.has(stored) ? stored : defaultLang;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(STORAGE_KEY, lang);
+  }, [lang]);
 
   const t = useMemo(() => {
     return (key, params = {}) => {

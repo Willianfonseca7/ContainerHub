@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
+import { BASE_URL, requestJson } from './http';
 
 const normalizeProfile = (payload) => {
   if (!payload) return null;
@@ -11,28 +11,15 @@ const normalizeProfile = (payload) => {
   };
 };
 
-const parseResponse = async (res) => {
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const message =
-      json?.error?.message || json?.message || `Request failed (${res.status})`;
-    throw new Error(message);
-  }
-  return json;
-};
-
 export const getMyProfile = async (token) => {
-  const res = await fetch(`${BASE_URL}/api/profiles/me?populate=avatar`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  const json = await requestJson('/api/profiles/me?populate=avatar', {
+    headers: { Authorization: `Bearer ${token}` },
   });
-  const json = await parseResponse(res);
   return normalizeProfile(json);
 };
 
 export const upsertMyProfile = async (token, payload) => {
-  const res = await fetch(`${BASE_URL}/api/profiles/me?populate=avatar`, {
+  const json = await requestJson('/api/profiles/me?populate=avatar', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -40,7 +27,6 @@ export const upsertMyProfile = async (token, payload) => {
     },
     body: JSON.stringify(payload),
   });
-  const json = await parseResponse(res);
   return normalizeProfile(json);
 };
 
@@ -55,7 +41,12 @@ export const uploadAvatar = async (token, file) => {
     },
     body: form,
   });
-  const json = await parseResponse(res);
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const message =
+      json?.error?.message || json?.message || `Request failed (${res.status})`;
+    throw new Error(message);
+  }
   return Array.isArray(json) ? json[0] : json;
 };
 

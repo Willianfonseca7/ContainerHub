@@ -5,6 +5,7 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import SocialButton from '../components/auth/SocialButton';
 import { useI18n } from '../context/I18nContext';
+import { validateRequired } from '../utils/validation';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
 
@@ -28,12 +29,25 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (!email.trim() || !password.trim()) {
+    if (validateRequired(email, t('auth.errors.required')) || validateRequired(password, t('auth.errors.required'))) {
       setError(t('auth.errors.required'));
       return;
     }
     try {
       await login(email, password);
+      const intent = localStorage.getItem('containerhub_intent');
+      if (intent) {
+        try {
+          const parsed = JSON.parse(intent);
+          if (parsed?.type === 'reserve' && parsed?.returnTo) {
+            localStorage.removeItem('containerhub_intent');
+            navigate(parsed.returnTo, { replace: true });
+            return;
+          }
+        } catch {
+          localStorage.removeItem('containerhub_intent');
+        }
+      }
       navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err?.message || t('auth.errors.failed'));

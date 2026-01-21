@@ -51,6 +51,12 @@
       "type": "integer",
       "required": true,
       "min": 0
+    },
+    "reservation_requests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation-request.reservation-request",
+      "mappedBy": "container"
     }
   }
 }

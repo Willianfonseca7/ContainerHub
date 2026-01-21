@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 import Button from '../ui/Button';
-import LanguageSwitcher from '../domain/LanguageSwitcher';
+import LanguageDropdown from '../domain/LanguageDropdown';
 import { useI18n } from '../../context/I18nContext';
 import { useAuth } from '../../context/AuthContext';
 import Avatar from '../ui/Avatar';
@@ -81,7 +81,7 @@ export default function Navbar() {
           >
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <LanguageSwitcher />
+          <LanguageDropdown />
           {isAuthenticated ? (
             <div className="relative" ref={menuRef}>
               <button
