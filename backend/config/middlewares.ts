@@ -1,22 +1,19 @@
-module.exports = [
+export default [
   'strapi::errors',
+  'strapi::security',
   {
     name: 'strapi::cors',
     config: {
-      origin: [
-        'https://kontainer-flame.vercel.app',
-        'https://kontainer-flame.vercel.app/containers',
-        'https://kontainer-flame.vercel.app/*'
-      ],
-      headers: '*',
+      origin: ['https://kontainer-flame.vercel.app'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
+      credentials: true,
     },
   },
-  'strapi::security',
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
   'strapi::body',
   'strapi::session',
-  'strapi::favicon',
-  'strapi::public',
 ];
+
