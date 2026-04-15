@@ -21,7 +21,7 @@ services:
       - key: PORT
         value: "1337"
       - key: PUBLIC_URL
-        sync: false
+        value: https://kontainer.onrender.com
       - key: FRONTEND_URL
         value: https://kontainer-flame.vercel.app
       - key: APP_KEYS
