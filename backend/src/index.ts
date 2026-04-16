@@ -50,7 +50,7 @@ export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    const count = await strapi.documents('api::container.container').count({});
+    const count = await strapi.documents('api::container.container').count({ status: 'published' });
 
     if (count > 0) {
       strapi.log.info(`[seed] ${count} containers ja existem — seed ignorado.`);
@@ -61,7 +61,10 @@ export default {
     const containers = buildContainers();
 
     for (const data of containers) {
-      await strapi.documents('api::container.container').create({ data });
+      await strapi.documents('api::container.container').create({
+        data,
+        status: 'published',
+      });
     }
 
     strapi.log.info('[seed] 60 containers inseridos com sucesso!');
