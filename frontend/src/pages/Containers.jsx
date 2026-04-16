@@ -49,9 +49,7 @@ function getPriceValue(item) {
 function formatPriceText(noCam, cam, lang, t) {
   const noCamText = noCam !== null ? `€${noCam}` : '—';
   const camText = cam !== null ? `€${cam}` : '—';
-  return lang === 'de'
-    ? `Ab ${noCamText}/Monat • Kamera ab ${camText}/Monat`
-    : `From ${noCamText}/month • Camera from ${camText}/month`;
+  return t('containers.priceFrom', { noCam: noCamText, cam: camText });
 }
 
 function SizeCard({ size, items, loading, t, lang, onClick, disabled }) {
@@ -135,7 +133,7 @@ function SizeCard({ size, items, loading, t, lang, onClick, disabled }) {
               }}
               disabled={disabled}
             >
-              Reservieren
+              {t('cards.available')}
             </Button>
           </div>
         ) : null}

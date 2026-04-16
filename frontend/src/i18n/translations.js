@@ -28,7 +28,7 @@ const translations = {
       premiumAlt: 'Containerkorridor mit Beleuchtung',
       mobileAlt: 'Einzelner Container im Hof',
       how: {
-        label: 'How it works',
+        label: 'So funktioniert es',
         title: 'In drei Schritten startklar',
         steps: [
           { title: 'Einheit wählen', desc: 'Einheit wählen (Ort, Größe, Plan).' },
@@ -115,6 +115,7 @@ const translations = {
       available: 'Verfügbar: {{value}}',
       plans: 'Pläne: Basic {{basic}} • Premium {{premium}}',
       info: 'Alle mit PIN-Zugang; Premium mit interner 24/7-Kamera.',
+      priceFrom: 'Ab {{noCam}}/Monat • Kamera ab {{cam}}/Monat',
       emptySize: '0 Einheiten. Keine Einheiten dieser Größe mit aktuellen Filtern.',
       emptyAll: '0 Einheiten. Keine Einheiten derzeit verfügbar.',
       fidelizationTitle: 'Rabatte für Laufzeiten',
@@ -448,6 +449,7 @@ const translations = {
       available: 'Available: {{value}}',
       plans: 'Plans: Basic {{basic}} • Premium {{premium}}',
       info: 'All with PIN access; Premium adds internal 24/7 camera.',
+      priceFrom: 'From {{noCam}}/month • Camera from {{cam}}/month',
       emptySize: '0 units. No units of this size with current filters.',
       emptyAll: '0 units. No units available at the moment.',
       fidelizationTitle: 'Loyalty discounts',
@@ -780,6 +782,7 @@ const translations = {
       available: 'Disponíveis: {{value}}',
       plans: 'Planos: Basic {{basic}} • Premium {{premium}}',
       info: 'Todos com acesso por PIN; Premium com câmera interna 24/7.',
+      priceFrom: 'A partir de {{noCam}}/mês • Câmera a partir de {{cam}}/mês',
       emptySize: '0 unidades. Nenhuma unidade deste tamanho com os filtros atuais.',
       emptyAll: '0 unidades. Nenhuma unidade disponível no momento.',
       fidelizationTitle: 'Descontos por fidelização',
