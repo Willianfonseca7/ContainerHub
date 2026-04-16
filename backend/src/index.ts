@@ -8,8 +8,8 @@ function buildContainers() {
   const sizes = ['S', 'M', 'L'] as const;
   const list: {
     code: string;
-    size: string;
-    city: string;
+    size: 'S' | 'M' | 'L';
+    city: 'Dusseldorf' | 'Koeln';
     has_camera: boolean;
     availability_status: 'available' | 'reserved' | 'rented';
     priceMonthly: number;
