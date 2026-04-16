@@ -4,7 +4,12 @@ export default ({ env }) => [
   {
     name: 'strapi::cors',
     config: {
-      origin: [env('FRONTEND_URL', 'http://localhost:5173')],
+      origin: [
+        'https://kontainer-flame.vercel.app',
+        env('FRONTEND_URL', 'http://localhost:5173'),
+        'http://localhost:5173',
+        'http://localhost:3000',
+      ],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
       credentials: true,
