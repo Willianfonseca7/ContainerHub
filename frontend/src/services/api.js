@@ -12,8 +12,12 @@ function normalizeContainer(entry) {
   const price = priceRaw !== undefined ? Number(priceRaw) : 0;
   const priceMonthly = priceRaw !== undefined ? Number(priceRaw) : 0;
 
+  const documentId = entry.documentId ?? attrs.documentId;
+
   return {
-    id: entry.id ?? attrs.id,
+    id: documentId ?? entry.id ?? attrs.id,
+    documentId,
+    numericId: entry.id ?? attrs.id,
     ...attrs,
     code,
     size,
