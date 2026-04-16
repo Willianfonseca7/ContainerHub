@@ -11,7 +11,7 @@ function buildContainers() {
     size: string;
     city: string;
     has_camera: boolean;
-    availability_status: string;
+    availability_status: 'available' | 'reserved' | 'rented';
     priceMonthly: number;
     publishedAt: Date;
   }[] = [];
