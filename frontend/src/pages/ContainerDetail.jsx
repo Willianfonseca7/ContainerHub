@@ -167,9 +167,6 @@ export default function ContainerDetail() {
       return;
     }
 
-    // TODO auth: se não autenticado, redirecionar para /login?redirect=/containers/:id
-    // TODO auth: validar se usuário já tem pedido ativo antes de enviar
-
     setSubmitState({ loading: true, success: '', error: '' });
 
     const payload = {
@@ -186,8 +183,6 @@ export default function ContainerDetail() {
     };
 
     try {
-      // eslint-disable-next-line no-console
-      console.log('Reservation payload', payload);
       const created = await createReservation(payload, token);
       const createdData = created?.data?.attributes || created?.data || created;
       const reservationSnapshot = {
@@ -213,8 +208,6 @@ export default function ContainerDetail() {
       setTimeout(() => navigate('/', { replace: true }), 1200);
     } catch (err) {
       const status = err?.status;
-      // eslint-disable-next-line no-console
-      console.error('Reservation error', status, err?.data || err);
       let message = t('reservation.errors.submitFail');
       if (status === 401 || status === 403) {
         message = t('reservation.errors.loginRequired');

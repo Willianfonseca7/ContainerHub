@@ -142,7 +142,6 @@ function SizeCard({ size, items, loading, t, lang, onClick, disabled }) {
   );
 }
 
-// TODO: replace with real auth
 function isAdmin() {
   return typeof localStorage !== 'undefined' && localStorage.getItem('role') === 'admin';
 }
@@ -171,21 +170,6 @@ export default function Containers() {
         );
       return sizeMatch && locationMatch;
     });
-
-    if (process.env.NODE_ENV !== 'production' && items.length === 0 && containers.length > 0) {
-      const uniqueCities = Array.from(
-        new Set(containers.map((c) => normalizeText(c.city || c.location))),
-      );
-      // eslint-disable-next-line no-console
-      console.debug(
-        '[containers] contagem 0 para tamanho',
-        size,
-        'loc',
-        selectedLocation,
-        'cidades API:',
-        uniqueCities,
-      );
-    }
 
     return { size, items };
   });
@@ -222,16 +206,13 @@ export default function Containers() {
       }
       const first = pickFirstAvailableBySize(all, size);
       if (!first?.id) {
-        alert('Nenhum container disponível para este tamanho agora.');
         return;
       }
       setSelectedContainer(first);
       setSelectedDuration(1);
       setIsPreviewOpen(true);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('handleSelectSize failed:', e);
-      alert('Falha ao abrir o detalhe do container. Veja o console.');
+    } catch {
+      // silent fail: modal simply doesn't open
     }
   };
 

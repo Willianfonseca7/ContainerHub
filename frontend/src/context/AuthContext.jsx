@@ -41,9 +41,7 @@ export function AuthProvider({ children }) {
       const storedUser = localStorage.getItem(NEW_USER_KEY) || localStorage.getItem(USER_KEY);
       if (storedToken) setToken(storedToken);
       if (storedUser) setUser(JSON.parse(storedUser));
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to parse stored auth data', err);
+    } catch {
       localStorage.removeItem(TOKEN_KEY);
       localStorage.removeItem(USER_KEY);
       localStorage.removeItem(NEW_TOKEN_KEY);
@@ -90,8 +88,6 @@ export function AuthProvider({ children }) {
       const data = await loginLocal({ identifier: email, password });
       persistSession(data.jwt, data.user);
       await refreshProfile(data.jwt);
-      // eslint-disable-next-line no-console
-      console.log('Auth user:', data.user);
       return data.user;
     } finally {
       setLoading(false);
@@ -130,8 +126,6 @@ export function AuthProvider({ children }) {
       const data = await registerLocal({ name, email, password });
       persistSession(data.jwt, data.user);
       await refreshProfile(data.jwt);
-      // eslint-disable-next-line no-console
-      console.log('Auth user:', data.user);
       return data.user;
     } finally {
       setLoading(false);
